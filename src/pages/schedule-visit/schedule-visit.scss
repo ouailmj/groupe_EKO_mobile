@@ -1,0 +1,22 @@
+page-schedule-visit,
+.schedule-visit {
+
+  .grid {
+    padding: 0;
+    .col {
+      padding: 0;
+    }
+  }
+
+  ion-list {
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+
+  ion-datetime {
+  	.datetime-text {
+  		font-size: 2.2rem;
+  	}
+  }
+
+}

@@ -1,0 +1,62 @@
+<!-- -->
+<ion-header>
+	<ion-navbar>
+		<ion-title>
+			<span ion-text color="primary">Schedule a visit</span>
+		</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding class="schedule-visit lightest-bg">
+  <!--search form-->
+  <ion-card no-margin margin-bottom class="full-width">
+  	<ion-card-header no-padding>
+  		<ion-item class="light-bg">
+				<ion-avatar item-left>
+						<img src="{{broker.picture}}"/>
+				</ion-avatar>
+				<h2 ion-text color="dark" class="fw500">{{broker.name}}</h2>
+				<p ion-text color="primary">{{broker.title}}</p>
+			</ion-item>
+  	</ion-card-header>
+
+  	<hr no-margin>
+
+		<ion-card-content>
+			<ion-grid fixed>
+				<ion-row padding-top>
+					<ion-col col-12 margin-bottom>
+						<h2 ion-text color="primary">{{ visitDate.name }}</h2>
+						<button ion-button icon-start large full color="light" (click)="openCalendar()">
+							<ion-icon class="text-dark" name="md-calendar"></ion-icon>
+							<span class="text-dark">{{ visitDate.date }}</span>
+						</button>
+					</ion-col>
+					<ion-col col-12>
+						<h2 ion-text color="primary">{{ visitDate.timename }}</h2>
+						<ion-datetime class="light-bg text-dark" text-center padding displayFormat="h:mm A" [(ngModel)]="visitDate.time"></ion-datetime>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+		</ion-card-content>
+
+  	<hr no-margin>
+
+		<ion-card-content>
+			<ion-label>Let your Considerations</ion-label>
+			<ion-item class="light-bg">
+				<ion-textarea placeholder="Enter Message..." rows="4" class="txt-chat"></ion-textarea>
+			</ion-item>
+
+			<button ion-button icon-start large full color="primary" (click)="schedule()">
+				Schedule
+			</button>
+		</ion-card-content>
+  </ion-card>
+
+
+</ion-content>
+
+<ion-footer>
+
+</ion-footer>

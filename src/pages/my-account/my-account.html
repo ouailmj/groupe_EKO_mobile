@@ -1,0 +1,103 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu" color="primary"></ion-icon>
+        </button>
+        <ion-title>
+            <span ion-text color="primary">My Account</span>
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="profile light-bg">
+
+    <ion-card>
+      <ion-card-content class="initial-background-md initial-background-ios">
+			  <ion-grid fixed>
+			    <ion-row>
+			      <ion-col col-12>
+		          <img src="assets/img/avatar.png">
+		          <h2 class="fw500">username</h2>
+		          <h3 ion-text color="light">Customer</h3>
+		          <button col col-md-6 offset-md-3 ion-button icon-start block outline margin-top color="light">
+		            <ion-icon name="photos"></ion-icon>
+		            Edit / Insert picture
+		          </button>
+		        </ion-col>
+		      </ion-row>
+		    </ion-grid>
+      </ion-card-content>
+
+		  <ion-grid fixed>
+		    <ion-row>
+		      <ion-col col-12>
+			      <ion-list>
+
+			        <ion-item>
+			          <ion-label color="dark" stacked><b>Full Name:</b></ion-label>
+			          <ion-input type="text" placeholder="Ex..: test" value=""></ion-input>
+			        </ion-item>
+
+							<ion-item>
+			          <ion-label color="dark" stacked><b>Username:</b></ion-label>
+			          <ion-input type="text" placeholder="Ex..: test" value=""></ion-input>
+			        </ion-item>
+
+			        <ion-item>
+			          <ion-label color="dark" stacked><b>Email:</b></ion-label>
+			          <ion-input type="email" placeholder="Ex.: test@test.com" value=""></ion-input>
+			        </ion-item>
+
+			        <ion-item>
+			          <ion-label color="dark" stacked><b>Address:</b></ion-label>
+			          <ion-input type="text" placeholder="Ex.: test"></ion-input>
+			        </ion-item>
+
+							<ion-item>
+			          <ion-label color="dark" stacked><b>Code postal:</b></ion-label>
+			          <ion-input type="text" placeholder="Ex..: test" value=""></ion-input>
+			        </ion-item>
+							
+							<ion-item>
+			          <ion-label color="dark" stacked><b>Telephone:</b></ion-label>
+			          <ion-input type="text" placeholder="Ex..: test" value=""></ion-input>
+			        </ion-item>
+
+							<ion-item>
+			          <ion-label color="dark" stacked><b>Type:</b></ion-label>
+			          <ion-input type="text" placeholder="" value=""></ion-input>
+			        </ion-item>
+
+
+							<ion-item>
+			          <ion-label color="dark" stacked><b>Derniere connexion:</b></ion-label>
+			          <ion-input type="text" [disabled]="isReadonly" readonly="true"></ion-input>
+							</ion-item>
+							
+			      </ion-list>
+
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+
+		<ion-grid class="btn-group">
+			<ion-row>
+				<button ion-button block class="btn-edit col col-4"  color="btn-ed" (click)="sendData()">
+					<ion-icon name="md-create" class="icone-btn"></ion-icon>					
+					Edit profile
+				</button>
+				<button ion-button block class="col col-4"  color="primary" (click)="sendDataPassword()">
+					<ion-icon name="ios-key" class="icone-btn"></ion-icon>
+					Edit password
+				</button>			
+			</ion-row>
+		</ion-grid>
+		</ion-card>
+
+    <div padding class="footer-account">
+      <p ion-text color="comment" no-margin>
+				<span class="span-cright">&copy 2018.</span> <a class="lien" href="#"><b>EKO</b></a> 
+			</p>
+    </div>
+
+</ion-content>

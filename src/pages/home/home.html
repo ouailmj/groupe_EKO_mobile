@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" color="dark"></ion-icon>
+    </button>
+    <ion-title>
+      <span ion-text color="primary" class="fw300">ion</span><span ion-text color="dark" class="fw700">Property</span>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="presentNotifications($event)">
+        <ion-icon name="notifications" color="primary"></ion-icon>
+      </button>
+      <button ion-button (click)="openSettingsPage()">
+        <ion-icon name="cog" color="primary"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col col-6 no-padding>
+        <button ion-button full large no-margin color="primary" (click)="openPropertyListPage({proptype: 'sale', from: 'home'})">For Sale</button>
+      </ion-col>
+      <ion-col col-6 no-padding>
+        <button ion-button full large no-margin color="dark" (click)="openPropertyListPage({proptype: 'rent', from: 'home'})">For Rent</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+	<ion-grid fixed>
+		<ion-row>
+			<ion-col col-12>
+				<ion-searchbar [(ngModel)]="searchKey" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)"></ion-searchbar>
+
+				<h3 ion-text text-center color="dark" class="main-styled-border">Recently Added</h3>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+	<ion-grid fixed>
+		<ion-row>
+
+			<button ion-item col col-12 col-md-6 *ngFor="let property of properties" (click)="openPropertyDetail(property)">
+				<ion-thumbnail item-start>
+						<img src="{{property.thumbnail}}">
+				</ion-thumbnail>
+				<h2 ion-text color="dark">{{property.title}}</h2>
+				<h3 ion-text color="primary">{{property.city}}, {{property.state}} ∙ {{ property.price }}</h3>
+				<button ion-button round item-end color="light">
+					<ion-icon name="arrow-round-forward" color="primary"></ion-icon>
+				</button>
+			</button>
+
+		</ion-row>
+	</ion-grid>
+
+	<ion-grid fixed>
+		<ion-row>
+			<ion-col col-12>
+
+				<div padding>
+					<button ion-button round block color="primary" (click)="openPropertyListPage()">
+						See more
+					</button>
+				</div>
+
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+</ion-content>

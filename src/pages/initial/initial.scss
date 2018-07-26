@@ -1,0 +1,62 @@
+page-initial {
+  @import url('https://fonts.googleapis.com/css?family=Monoton');
+  .skip{
+    text-transform: uppercase;
+      color: #ffffff;
+      font-family: 'Monoton', cursive;
+      font-size: 1.3em;
+      margin: 25% 0 0 0
+  }
+  ion-toolbar{
+    margin-bottom: 50px;
+  }
+  .toolbar-background {
+    border-color: transparent;
+    background-color: #008080;
+  }
+  .slide-zoom {
+    height: 95vh;
+  }
+
+  .slide-title {
+    margin-top: 0;
+    margin-bottom: 20px
+  }
+  .slide-image {
+    width: 200px !important;
+    height:130px;   
+
+    margin: 0 0 18px;
+    margin-bottom: 30px
+  }
+
+  .slide-image-last{
+    width: 60px !important;
+    margin: 0 0 18px;
+    margin-bottom: 30px
+  }
+
+
+  b {
+    font-weight: 500;
+  }
+
+  p {
+    padding: 0 40px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #60646B;
+    font-family:"Roboto", Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.5384616;
+    b {
+      color: #000;
+    }
+  }
+  ion-label{
+    width:30%
+  }
+  .btn-googleplus{
+    height:40px;
+  }
+}

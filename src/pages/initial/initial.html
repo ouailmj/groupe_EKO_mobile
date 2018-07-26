@@ -1,0 +1,44 @@
+<ion-content class="initial-background-ios initial-background-md">
+	<ion-grid no-padding fixed>
+		<ion-row no-padding>
+			<ion-col>
+
+				<ion-slides pager="true" dir="{{dir}}">
+					<ion-slide class="test" *ngFor="let slide of slideList">
+						<ion-toolbar>
+							<ion-buttons end>
+								<button ion-button class="text-white" (click)="onLastSlide()"><h5 class="skip">Skip</h5></button>
+							</ion-buttons>
+						</ion-toolbar>
+						<img [src]="slide.image" class="slide-image">
+						<h2 class="slide-title text-white" [innerHTML]="slide.title"></h2>
+						<p [innerHTML]="slide.description" class="text-white"></p>
+
+						<div padding>
+							<button ion-button round block color="secondary" margin-top icon-end (click)="onSlideNext()">
+								Next
+								<ion-icon name="arrow-round-forward" color="light"></ion-icon>
+							</button>
+						</div>
+					</ion-slide>
+					<ion-slide class="test">
+						<ion-toolbar>
+						</ion-toolbar>
+						<img src="assets/img/icon_eko.png" class="slide-image-last" margin-top>
+						<h2 class="slide-title text-white" margin-bottom>Ready to start?</h2>
+
+						<div padding>
+							<button ion-button block round outline color="light" margin-top (click)="openAuthPage()">
+								Sign In / Sign Up
+							</button>
+							<button class="btn-googleplus" ion-button block round color="danger" margin-top icon-only (click)="openHomePage()">
+								<ion-icon name="logo-googleplus"></ion-icon>
+							</button>
+						</div>
+					</ion-slide>
+				</ion-slides>
+
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>
