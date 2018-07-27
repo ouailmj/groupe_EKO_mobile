@@ -10,34 +10,29 @@
 	          <ion-item>
 
 	            <ion-avatar item-left>
-	              <img src="assets/img/avatar.jpeg">
+	              <img src="assets/img/avatar.png">
 	            </ion-avatar>
 
 	            <h2 ion-text class="text-white fw700 text-15x">
-	              João Firmino
+	              Username
 	            </h2>
-	            <p ion-text color="light">Customer</p>
 
 	            <ion-badge color="light" class="text-primary">
-	            	<ion-icon name="home"></ion-icon> Renter
+	            	<ion-icon name="open"></ion-icon> type
 	            </ion-badge>
-	            <ion-badge color="light" class="text-primary">
-	            	<ion-icon name="cash"></ion-icon> Paid
-	            </ion-badge>
-
 	          </ion-item>
 	        </ion-list>
 
 		      <ion-grid no-padding>
 		        <ion-row class="other-data">
 		          <ion-col text-center class="column">
-			          <button ion-button icon-start small full menuClose no-margin color="dark" (click)="openPage(accountMenuItems[1])">
+			          <button ion-button icon-start small full menuClose no-margin color="secondary" (click)="openPage(accountMenuItems[1])">
 			            <ion-icon name="contact"></ion-icon>
 			            My Account
 			          </button>
 		          </ion-col>
 		          <ion-col text-center class="column">
-			          <button ion-button icon-start small full menuClose no-margin color="dark" (click)="openPage(accountMenuItems[0])">
+			          <button ion-button icon-start small full menuClose no-margin color="secondary" (click)="openPage(accountMenuItems[0])">
 			            <ion-icon name="log-out"></ion-icon>
 			            Log Out
 			          </button>
@@ -54,16 +49,16 @@
 
 	    <ion-list>
 	      <button menuClose ion-item (click)="openPage(homeItem)">
-	        <ion-icon item-left name="browsers"></ion-icon>
-	        Home
+	        <ion-icon item-left name="md-link"></ion-icon>
+	        Dashboard
 	      </button>
 	      <button menuClose ion-item (click)="openPage(initialItem)">
-	        <ion-icon item-left name="browsers"></ion-icon>
-	        Initial <small>(introduction slides)</small>
-	      </button>
+	        <ion-icon item-left name="home"></ion-icon>
+					Main
+				</button>
 	      <button menuClose ion-item (click)="openPage(messagesItem)">
-	        <ion-icon item-left name="mail"></ion-icon>
-	        Messages
+	        <ion-icon item-left name="contacts"></ion-icon>
+	        Members
 	      </button>
 	      <button menuClose ion-item (click)="openPage(invoicesItem)">
 	        <ion-icon item-left name="list-box"></ion-icon>
@@ -71,14 +66,14 @@
 	      </button>
 	      <button menuClose ion-item (click)="openPage(timelineItem)">
 	        <ion-icon item-left name="clock"></ion-icon>
-	        Business Timeline
+	        Planning
 	      </button>
 	    </ion-list>
 
 
 	    <ion-list>
 	      <ion-list-header no-margin>
-	        <span ion-text color="dark" class="fw500">Realty</span>
+	        <span ion-text color="dark" class="fw500">Forum</span>
 	      </ion-list-header>
 	      <button menuClose ion-item *ngFor="let menuItem of appMenuItems" (click)="openPage(menuItem)">
 	        <ion-icon item-left [name]="menuItem.icon"></ion-icon>

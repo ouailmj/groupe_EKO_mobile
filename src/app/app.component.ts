@@ -46,16 +46,13 @@ export class ionPropertyApp {
 		this.timelineItem = {component: 'page-timeline'};
 
 		this.appMenuItems = [
-			{title: 'Properties', component: 'page-property-list', icon: 'home'},
-			{title: 'Brokers', component: 'page-broker-list', icon: 'people'},
-			{title: 'Favorites', component: 'page-favorite-list', icon: 'heart'},
-			{title: 'Get Pre-Approved', component: 'page-pre-approved', icon: 'checkmark-circle'},
+			{title: 'Last Threads', component: 'page-property-list', icon: 'home'},
+			{title: 'Contact', component: 'page-broker-list', icon: 'people'},
+			{title: 'Notification', component: 'page-favorite-list', icon: 'heart'},
+			{title: 'Ask for a topic', component: 'page-pre-approved', icon: 'md-help-circle'},
 		];
 
 		this.yourPropertyMenuItems = [
-			{title: 'Rent Out', component: 'page-your-property', icon: 'clipboard'},
-			{title: 'Sell', component: 'page-your-property', icon: 'cash'},
-			{title: 'Lease', component: 'page-your-property', icon: 'grid'}
 		];
 
 
