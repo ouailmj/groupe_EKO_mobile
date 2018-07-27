@@ -1,10 +1,10 @@
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
-      <ion-icon name="menu" color="dark"></ion-icon>
+      <ion-icon name="menu" color="primary"></ion-icon>
     </button>
     <ion-title>
-      <span ion-text color="primary" class="fw300">ion</span><span ion-text color="dark" class="fw700">Property</span>
+      <span ion-text color="dark" class="fw700" color="primary">EKO</span>
     </ion-title>
     <ion-buttons end>
       <button ion-button (click)="presentNotifications($event)">
@@ -22,10 +22,10 @@
   <ion-grid no-padding>
     <ion-row>
       <ion-col col-6 no-padding>
-        <button ion-button full large no-margin color="primary" (click)="openPropertyListPage({proptype: 'sale', from: 'home'})">For Sale</button>
+        <button ion-button full large no-margin color="danger" (click)="openPropertyListPage({proptype: 'sale', from: 'home'})">Unanswered</button>
       </ion-col>
       <ion-col col-6 no-padding>
-        <button ion-button full large no-margin color="dark" (click)="openPropertyListPage({proptype: 'rent', from: 'home'})">For Rent</button>
+        <button ion-button full large no-margin color="primary" (click)="openPropertyListPage({proptype: 'rent', from: 'home'})">Answered</button>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -35,7 +35,7 @@
 			<ion-col col-12>
 				<ion-searchbar [(ngModel)]="searchKey" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)"></ion-searchbar>
 
-				<h3 ion-text text-center color="dark" class="main-styled-border">Recently Added</h3>
+				<h3 ion-text text-center color="primary" class="main-styled-border">Recently Added</h3>
 			</ion-col>
 		</ion-row>
 	</ion-grid>
@@ -44,11 +44,13 @@
 		<ion-row>
 
 			<button ion-item col col-12 col-md-6 *ngFor="let property of properties" (click)="openPropertyDetail(property)">
-				<ion-thumbnail item-start>
-						<img src="{{property.thumbnail}}">
-				</ion-thumbnail>
-				<h2 ion-text color="dark">{{property.title}}</h2>
-				<h3 ion-text color="primary">{{property.city}}, {{property.state}} ∙ {{ property.price }}</h3>
+				<h2 ion-text color="primary">Object</h2>
+				<h3 ion-text color="dark">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum, at eligendi delectus vero non aliquam totam adipisci ipsam natus debitis praesentium quo eius voluptatibus mollitia facere, ut beatae excepturi dolorem?</h3>
+				<p ion-text color="dark">
+					<ion-icon name="heart"></ion-icon> 3 |
+					<ion-icon name="ios-eye"></ion-icon> 4 |
+					5	 answers
+				</p>
 				<button ion-button round item-end color="light">
 					<ion-icon name="arrow-round-forward" color="primary"></ion-icon>
 				</button>

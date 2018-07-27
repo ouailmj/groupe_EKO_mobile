@@ -14,9 +14,6 @@
 		    <ion-segment-button value="login">
 		      Login
 		    </ion-segment-button>
-		    <ion-segment-button value="register">
-		      Register
-		    </ion-segment-button>
 		  </ion-segment>
 		</div>
 
@@ -49,90 +46,9 @@
 							<ion-icon name="log-in"></ion-icon>
 							SIGN IN
 						</button>
-						
-						<p text-center ion-text color="light">Or Sign in with:</p>
-						
-						<ion-grid class="btn-group">
-							<ion-row>
-								<button ion-button color="linked" icon-only block class="btn-facebook col col-4">
-									<ion-icon name="logo-linkedin"></ion-icon>
-								</button>
-								<button ion-button icon-only block class="btn-twitter col col-4">
-									<ion-icon name="logo-skype"></ion-icon>
-								</button>
-								<button ion-button icon-only color="danger" block class="btn-gplus col col-4">
-									<ion-icon name="logo-googleplus"></ion-icon>
-								</button>
-							</ion-row>
-						</ion-grid>
-						
 					</div>
 				</form>
 			</div>
-
-			<div id="registerForm" *ngSwitchCase="'register'">
-		    <!-- Register form -->
-		    <form [formGroup]="registersForm" (ngSubmit)="onSubmitReg()"  class="list-form">
-		      <ion-item>
-		        <ion-label floating>
-		          <ion-icon name="person" item-start class="text-white"></ion-icon>
-		          Full Name
-		        </ion-label>
-		        <ion-input type="text" formControlName="username" [(ngModel)]="registerData.username"></ion-input>
-		      </ion-item>
-		      <p ion-text color="danger" class="text-1x has-error" *ngIf="registersForm.get('username').touched && registersForm.get('username').hasError('required')">This field is required</p>
-
-		      <ion-item>
-		        <ion-label floating>
-		          <ion-icon name="mail" item-start class="text-white"></ion-icon>
-		          Email
-		        </ion-label>
-		        <ion-input type="email" formControlName="email" [(ngModel)]="registerData.email"></ion-input>
-		      </ion-item>
-		      <p ion-text color="danger" class="text-1x has-error" *ngIf="registersForm.get('email').touched && registersForm.get('email').hasError('required')">This field is required</p>
-
-		      <ion-item>
-		        <ion-label floating>
-		          <ion-icon name="lock" item-start class="text-white"></ion-icon>
-		          Password
-		        </ion-label>
-		        <ion-input type="password" formControlName="password" [(ngModel)]="registerData.password"></ion-input>
-		      </ion-item>
-					<p ion-text color="danger" class="text-1x has-error" *ngIf="registersForm.get('password').touched && registersForm.get('password').hasError('required')">This field is required</p>
-					
-					<ion-item>
-		        <ion-label floating>
-		          <ion-icon name="unlock" item-start class="text-white"></ion-icon>
-		          Confirm Password
-		        </ion-label>
-		        <ion-input type="password" formControlName="Confirm_password" [(ngModel)]="registerData.Confirm_password"></ion-input>
-		      </ion-item>
-		      <p ion-text color="danger" class="text-1x has-error" *ngIf="registersForm.get('Confirm_password').touched && registersForm.get('Confirm_password').hasError('required')">This field is required</p>
-					
-					<div margin-top>
-						<button ion-button block outline color="light" type="submit" name="button">
-							SIGN UP
-						</button>
-						
-						<p text-center ion-text color="light">Or Sign Up with:</p>
-						
-						<ion-grid class="btn-group">
-							<ion-row>
-								<button ion-button color="linked" icon-only block class="btn-facebook col col-4">
-									<ion-icon name="logo-linkedin"></ion-icon>
-								</button>
-								<button ion-button icon-only block class="btn-twitter col col-4">
-									<ion-icon name="logo-skype"></ion-icon>
-								</button>
-								<button ion-button icon-only block class="btn-gplus col col-4">
-									<ion-icon name="logo-googleplus"></ion-icon>
-								</button>
-							</ion-row>
-						</ion-grid>
-					</div>
-				</form>
-				</div>
-
 		</div>
 
 

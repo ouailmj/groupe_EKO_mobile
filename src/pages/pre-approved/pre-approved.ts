@@ -24,44 +24,60 @@ export class PreApprovedPage implements OnInit {
       profiledata: [true, Validators.compose([
         Validators.required
       ])],
-      propertyid: ['', Validators.compose([
+      objectid: ['', Validators.compose([
         Validators.required
       ])],
-      docnumber: ['', Validators.compose([
+      topic: ['', Validators.compose([
         Validators.required
       ])],
-      annualincome: ['', Validators.compose([
-        Validators.required
-      ])],
-      loan: ['', Validators.compose([
+      category: ['', Validators.compose([
         Validators.required
       ])]
     });
   }
 
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'bottom',
+      dismissOnPageChange: true
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }
+
   // process send button
   sendData() {
-    // send booking info
-    let loader = this.loadingCtrl.create({
-      content: "Please wait..."
-    });
-    // show message
-    let toast = this.toastCtrl.create({
-      showCloseButton: true,
-      cssClass: 'profiles-bg',
-      message: 'Pre-Approved Data Sent!',
-      duration: 3000,
-      position: 'bottom'
-    });
-
-    loader.present();
-
-    setTimeout(() => {
-      loader.dismiss();
-      toast.present();
-      // back to home page
-      this.navCtrl.setRoot('page-home');
-    }, 3000)
+    if(this.onApprovedForm.valid){
+      // send booking info
+      let loader = this.loadingCtrl.create({
+        content: "Please wait..."
+      });
+      // show message
+      let toast = this.toastCtrl.create({
+        showCloseButton: true,
+        cssClass: 'profiles-bg',
+        message: 'Pre-Approved Data Sent!',
+        duration: 3000,
+        position: 'bottom'
+      });
+  
+      loader.present();
+  
+      setTimeout(() => {
+        loader.dismiss();
+        toast.present();
+        // back to home page
+        this.navCtrl.setRoot('page-home');
+      }, 3000)
+    }else{
+      this.presentToast("Veuiller remplir tout les champs.");
+    }
   }
 
 }

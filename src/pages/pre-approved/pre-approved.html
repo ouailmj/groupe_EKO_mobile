@@ -4,7 +4,7 @@
             <ion-icon name="menu" color="primary"></ion-icon>
         </button>
         <ion-title>
-            <span ion-text color="primary">Get Pre-Approved</span>
+            <span ion-text color="primary">Ask for a Topic</span>
         </ion-title>
     </ion-navbar>
 </ion-header>
@@ -16,7 +16,7 @@
 			<ion-col>
 				<ion-card class="primary-bg">
 					<ion-card-content>
-						<p class="text-white">Complete the form with your assencial data for you loan credit analysis</p>
+						<p class="text-white">Complete the form with your assencial data for you and ask for your topic</p>
 					</ion-card-content>
 				</ion-card>
 
@@ -25,38 +25,42 @@
 						<form [formGroup]="onApprovedForm" class="list-form">
 							<ion-list margin-bottom>
 								<ion-item>
-									<ion-label>Use my account/profile data:</ion-label>
+									<ion-label>Use my profile data</ion-label>
 									<ion-checkbox formControlName="profiledata"></ion-checkbox>
 								</ion-item>
 								<p ion-text color="danger" class="text-1x has-error" *ngIf="onApprovedForm.get('profiledata').touched && onApprovedForm.get('profiledata').hasError('required')">This field is required</p>
 
 								<ion-item>
-									<ion-label color="primary" stacked>Property ID Code:</ion-label>
-									<ion-input type="number" placeholder="Code here" formControlName="propertyid"></ion-input>
+									<ion-label color="primary" stacked >Topic Object:</ion-label>
+									<ion-input type="text" placeholder="object here..." formControlName="objectid"></ion-input>
 								</ion-item>
-								<p ion-text color="danger" class="text-1x has-error" *ngIf="onApprovedForm.get('propertyid').touched && onApprovedForm.get('propertyid').hasError('required')">This field is required</p>
+								<p ion-text color="danger" class="text-1x has-error" *ngIf="onApprovedForm.get('objectid').touched && onApprovedForm.get('objectid').hasError('required')">This field is required</p>
 
 								<ion-item>
-									<ion-label color="primary" stacked>Document Number:</ion-label>
-									<ion-input type="number" placeholder="Ex.: 12345678900" formControlName="docnumber"></ion-input>
+									<ion-label color="primary" stacked>Topic :</ion-label>
+									<ion-input type="textarea" formControlName="topic"></ion-input>
 								</ion-item>
-								<p ion-text color="danger" class="text-1x has-error" *ngIf="onApprovedForm.get('docnumber').touched && onApprovedForm.get('docnumber').hasError('required')">This field is required</p>
+								<p ion-text color="danger" class="text-1x has-error" *ngIf="onApprovedForm.get('topic').touched && onApprovedForm.get('topic').hasError('required')">This field is required</p>
 
-								<ion-item>
-									<ion-label color="primary" stacked>Annual Income:</ion-label>
-									<ion-input type="text" placeholder="Ex.: $100,000" formControlName="annualincome"></ion-input>
-								</ion-item>
-								<p ion-text color="danger" class="text-1x has-error" *ngIf="onApprovedForm.get('annualincome').touched && onApprovedForm.get('annualincome').hasError('required')">This field is required</p>
-
-								<ion-item>
-									<ion-label color="primary" stacked>Loan Required:</ion-label>
-									<ion-input type="text" placeholder="Ex.: $60,000" formControlName="loan"></ion-input>
-								</ion-item>
-								<p ion-text color="danger" class="text-1x has-error" *ngIf="onApprovedForm.get('loan').touched && onApprovedForm.get('loan').hasError('required')">This field is required</p>
+								<ion-list>
+									<ion-item>
+										  <ion-label>Category :</ion-label>
+										  <ion-select formControlName="category">
+											<ion-option value="test1">test1</ion-option>
+											<ion-option value="test2">test2</ion-option>
+											<ion-option value="test3">test3</ion-option>
+											<ion-option value="test4">test4</ion-option>
+										  </ion-select>
+										</ion-item>
+									</ion-list>
+								<p ion-text color="danger" class="text-1x has-error" *ngIf="onApprovedForm.get('category').touched && onApprovedForm.get('category').hasError('required')">This field is required</p>
 
 							</ion-list>
-
-							<button ion-button block color="dark" (click)="sendData()" [disabled]="!onApprovedForm.valid">Send Data</button>
+							<ion-item>
+								<input type="file" id="file-input" style="opacity: 0" #fileInp>
+								<button block ion-button class="upload">Upload</button>
+							  </ion-item>
+							<button ion-button block color="primary" (click)="sendData()">Post the topic</button>
 						</form>
 					</ion-card-content>
 				</ion-card>

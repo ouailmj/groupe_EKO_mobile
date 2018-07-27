@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar>
         <ion-title>
-            <span ion-text color="primary">Property</span>
+            <span ion-text color="primary">EKO</span>
         </ion-title>
     </ion-navbar>
 </ion-header>
@@ -12,41 +12,26 @@
 			<ion-col>
 
 				<ion-card *ngIf="property.id">
-	                <!--slides-->
-	                <ion-slides class="to-top" pager>
-	                  <ion-slide *ngFor="let image of property.images">
-	                    <img src="{{ image }}" alt="">
-	                  </ion-slide>
-	                </ion-slides>
-					<!-- <img src="{{property.picture}}"> -->
+					<button ion-item (click)="openBrokerDetail(property.broker)" color="light">
+							<ion-avatar item-left>
+								<img src="assets/img/avatar.png"/>
+							</ion-avatar>
+							<h2 ion-text color="dark" class="fw500">username</h2>
+							<p ion-text color="primary">Il y'a un mois</p>
+					</button>
 					<ion-card-content class="light-mb">
-							<h2 ion-text color="dark" class="card-title">{{property.title}}</h2>
-							<p ion-text color="primary">{{property.address}}, {{property.city}} {{property.state}}</p>
-					</ion-card-content>
-
-					<ion-list>
+						<br>
+							<h2 ion-text color="primary" class="card-title">Object</h2>
+							<hr>
+							<p ion-text color="dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aliquid perspiciatis repellat quae excepturi hic. Voluptate, quo qui vero nulla debitis aperiam nobis id omnis excepturi est itaque placeat amet?</p>
+						</ion-card-content>
+						
+						<ion-list>
 						<ion-item>
-								<ion-icon item-left name="moon"></ion-icon>
-								<h3>Bedrooms</h3>
-								<ion-note item-right>{{property.bedrooms}}</ion-note>
+								<ion-icon item-left name="heart"></ion-icon>
+								<h3>3 personnes aime ca</h3>
+								<h3>33 personnes ont commenté ce topic</h3>
 						</ion-item>
-						<ion-item>
-								<ion-icon item-left name="leaf"></ion-icon>
-								<h3>Bathrooms</h3>
-								<ion-note item-right>{{property.bathrooms}}</ion-note>
-						</ion-item>
-						<ion-item>
-								<ion-icon item-left name="pricetag"></ion-icon>
-								<h3>Asking Price</h3>
-								<ion-note item-right>{{property.price}}</ion-note>
-						</ion-item>
-						<button ion-item (click)="openBrokerDetail(property.broker)" color="light">
-								<ion-avatar item-left>
-										<img src="{{property.broker.picture}}"/>
-								</ion-avatar>
-								<h2 ion-text color="dark" class="fw500">{{property.broker.name}}</h2>
-								<p ion-text color="primary">{{property.broker.title}}</p>
-						</button>
 					</ion-list>
 
 					<ion-item>
@@ -60,6 +45,46 @@
 							</button>
 					</ion-item>
 				</ion-card>
+
+				<ion-card *ngIf="property.id">
+						<button ion-item (click)="openBrokerDetail(property.broker)" color="light">
+								<ion-avatar item-left>
+									<img src="assets/img/avatar.png"/>
+								</ion-avatar>
+								<h2 ion-text color="dark" class="fw500">username</h2>
+								<p ion-text color="primary">Il y'a un mois</p>
+						</button>
+						<br>
+						<ion-card-content class="light-mb">
+								<p ion-text color="dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aliquid perspiciatis repellat quae excepturi hic. Voluptate, quo qui vero nulla debitis aperiam nobis id omnis excepturi est itaque placeat amet?</p>
+							</ion-card-content>
+					</ion-card>
+					<ion-card *ngIf="property.id">
+							<button ion-item (click)="openBrokerDetail(property.broker)" color="light">
+									<ion-avatar item-left>
+										<img src="assets/img/avatar.png"/>
+									</ion-avatar>
+									<h2 ion-text color="dark" class="fw500">username</h2>
+									<p ion-text color="primary">Il y'a un mois</p>
+							</button>
+							<ion-card-content class="light-mb">
+						<br>
+
+									<p ion-text color="dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aliquid perspiciatis repellat quae excepturi hic. Voluptate, quo qui vero nulla debitis aperiam nobis id omnis excepturi est itaque placeat amet?</p>
+								</ion-card-content>
+						</ion-card>
+						<ion-card>
+							<ion-grid>
+									<ion-item class="ion-item-comment">
+											<ion-label color="dark" stacked><b>Comment:</b></ion-label>
+											<ion-input type="text" placeholder="" value=""></ion-input>
+										</ion-item>
+								<ion-item>
+										<button ion-button block round  color="primary" margin-top>add Comment</button>
+								</ion-item>
+							</ion-grid>
+						</ion-card>
+									
 
 			</ion-col>
 		</ion-row>

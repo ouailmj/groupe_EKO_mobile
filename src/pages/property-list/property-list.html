@@ -1,13 +1,13 @@
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
-      <ion-icon name="menu" color="dark"></ion-icon>
+      <ion-icon name="menu" color="primary"></ion-icon>
     </button>
     <ion-title>
-      <span ion-text color="primary">Properties <span *ngIf="from === 'home'" class="fw300">(for {{proptype}})</span></span>
+      <span ion-text color="primary">Home</span>
     </ion-title>
     <ion-buttons end>
-      <button ion-button (click)="openFilterModal()">
+      <button ion-button>
         <ion-icon name="funnel" color="primary"></ion-icon>
       </button>
     </ion-buttons>
@@ -20,54 +20,43 @@
 
 <ion-content class="lightest-bg">
 
-	<div padding-horizontal padding-top *ngIf="from !== 'home'">
+	<div padding-horizontal padding-top>
 	  <ion-segment [(ngModel)]="proptype">
 	    <ion-segment-button value="">
 	      All
 	    </ion-segment-button>
-	    <ion-segment-button value="sale">
-	      For Sale
+	    <ion-segment-button value="answered">
+	      Answered
 	    </ion-segment-button>
-	    <ion-segment-button value="rent">
-	      For Rent
+	    <ion-segment-button value="not answered">
+	      Not answered
 	    </ion-segment-button>
 	  </ion-segment>
 	</div>
 
   <ion-grid no-padding>
-	  <ion-row *ngIf="viewMode === 'list'">
+	  <ion-row>
 			<ion-col col col-12 col-md-6 *ngFor="let property of properties | termSearch:proptype:'label'" >
 	      <ion-card margin-bottom no-padding>
 	        <div class="card-img-wrap">
-	          <ion-fab bottom right edge>
-	            <button ion-fab mini (click)="favorite(property)">
-	              <ion-icon name="heart"></ion-icon>
-	            </button>
-	          </ion-fab>
-	          <img src="{{property.thumbnail}}" tappable (click)="openPropertyDetail(property)">
-	          <span ion-text class="card-img-price fw700 text-black">
-	            <ion-icon ios="ios-pricetag-outline" md="md-pricetag" color="primary"></ion-icon>
-	            {{ property.price }}
-	            <sup ion-text color="dark" class="fw500" *ngIf="property.period === 'week'">/week</sup>
-	            <sup ion-text color="dark" class="fw500" *ngIf="property.period === 'month'">/month</sup>
-	          </span>
 	          <span ion-text class="card-img-status sale fw300 text-white" [ngClass]="{'rent': property.label === 'rent', 'sale': property.label === 'sale'}">
-	            {{ property.label }}
 	          </span>
 	        </div>
 	        <ion-card-content>
 	          <ion-card-title ion-text color="dark" tappable (click)="openPropertyDetail(property)" no-margin no-padding>
-	            {{property.title}}
-	          </ion-card-title>
+							object
+						</ion-card-title>
 	          <p ion-text color="primary" no-margin>
-	            {{property.city}}, {{property.state}}
-	          </p>
+							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi vitae non incidunt fugit quis modi adipisci, quos facilis nam consequuntur culpa repellendus sunt exercitationem delectus assumenda quas ullam perferendis atque.
+						</p>
 
 	          <hr margin-vertical>
 
 	          <p ion-text color="dark">
-	            <ion-icon name="moon"></ion-icon> {{property.bedrooms}} |
-	            <ion-icon name="leaf"></ion-icon> {{property.bathrooms}}
+	            <ion-icon name="heart"></ion-icon> 3 |
+							<ion-icon name="ios-eye"></ion-icon> 4 |
+							5	 answers
+							
 	          </p>
 	        </ion-card-content>
 	      </ion-card>

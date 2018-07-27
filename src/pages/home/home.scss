@@ -12,7 +12,10 @@ page-home {
 
 	.button-large-md,
 	.button-large-ios {
+		span{
+			font-size: 14px;
+		}
 		box-shadow: none;
-		height: 12rem;
+		height: 3rem;
 	}
 }

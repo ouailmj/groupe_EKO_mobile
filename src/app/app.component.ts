@@ -46,7 +46,8 @@ export class ionPropertyApp {
 		this.timelineItem = {component: 'page-timeline'};
 
 		this.appMenuItems = [
-			{title: 'Last Threads', component: 'page-property-list', icon: 'home'},
+			{title: 'Home', component: 'page-property-list', icon: 'home'},
+			{title: 'Last Threads', component: 'page-property-list', icon: 'ios-bookmarks'},
 			{title: 'Contact', component: 'page-broker-list', icon: 'people'},
 			{title: 'Notification', component: 'page-favorite-list', icon: 'heart'},
 			{title: 'Ask for a topic', component: 'page-pre-approved', icon: 'md-help-circle'},
