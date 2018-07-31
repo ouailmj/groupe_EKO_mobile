@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { UserData } from '../../providers/types/userData';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, ToastController, MenuController, LoadingController, NavParams } from 'ionic-angular';
+import { AuthProvider } from '../../providers/auth/auth';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @IonicPage({
 	name: 'page-auth',
@@ -12,29 +14,73 @@ import { IonicPage, NavController, AlertController, ToastController, MenuControl
   selector: 'page-auth',
   templateUrl: 'auth.html'
 })
-export class AuthPage{
-  registersForm: FormGroup;
-  loading: any;
-  registerData = { username:"" , email:"", password:"", Confirm_password:""};
-  regData = { plainPassword:"",email:""};
-  auth: string = "login";
-  authForm: FormGroup;
 
-  constructor(public formBuilder: FormBuilder, public navParams: NavParams,public navCtrl: NavController , public forgotCtrl: AlertController, public menu: MenuController, private toastCtrl: ToastController,public loadingCtrl: LoadingController) {
-		this.menu.swipeEnable(false);
+export class AuthPage{
+  loading: any;
+  loginData:UserData = {
+    username:'admin',
+    password:"f%/R4Uk#](wUvM'V",
+  };
+    data: any;
+    authForm: FormGroup;
+
+  constructor(public formBuilder: FormBuilder,
+     private authService:AuthProvider,
+     public navParams: NavParams,
+     public navCtrl: NavController,
+     public forgotCtrl: AlertController, 
+     private menu: MenuController, 
+     private toastCtrl: ToastController,
+     public loadingCtrl: LoadingController) {
+    
+    this.menu.swipeEnable(false);
     this.menu.enable(false);
+    
     this.navCtrl = navCtrl;
+    
     this.authForm = formBuilder.group({      
-      email: ['', Validators.compose([Validators.required, Validators.email, Validators.minLength(6), Validators.maxLength(30)])],
+    
+      username: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(30)])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
-    });
-    this.registersForm = formBuilder.group({
-      username: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'), Validators.minLength(4), Validators.maxLength(30)])],
-      email: ['', Validators.compose([Validators.required, Validators.email, Validators.minLength(6), Validators.maxLength(30)])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
-      Confirm_password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+    
     });
   }
+
+  doLogin(value : any) {
+
+    if(this.authForm.valid) {
+      this.showLoader();
+      this.authService.login(this.loginData).then((result) => {
+
+          console.log(result.token);
+
+          this.loading.dismiss();
+
+          this.getUserInfo();
+          this.presentToast("welcome");
+
+      }
+      ).catch(err=>{
+          console.log(err);
+          this.loading.dismiss();
+          console.log(err)
+          this.presentToast("incorrect username or password !!");
+      });
+
+      }
+
+
+  }
+
+  getUserInfo(){
+
+    this.authService.getUserProfil().then(res=>{
+      this.navCtrl.setRoot('page-home');    
+    })
+
+  }
+
+
 
   showLoader(){
     this.loading = this.loadingCtrl.create({
@@ -59,47 +105,6 @@ export class AuthPage{
     toast.present();
   }
 
-  onSubmit(): void {
-    console.log("submit")
-
-    let messageError="";
-    if(this.authForm.valid) {
-      console.log("valid")
-     
-        this.showLoader();
-        this.loading.dismiss();
-        this.navCtrl.setRoot('page-home');
-      }else{
-      this.presentToast("Invalid data");
-
-    }
-  }
-
-  onSubmitReg(): void {
-    console.log("submit")
-
-    let messageError="";
-    if(this.registersForm.valid) {
-      if(this.registerData.password == this.registerData.Confirm_password){
-        console.log("valid")
-          this.showLoader();
-          this.loading.dismiss();
-          this.navCtrl.setRoot('page-home');
-      }else{
-        this.presentToast("Passwords does not match");
-      }
-    }else{
-      this.presentToast("Invalid data");
-
-    }
-  }
-
-  // go to register page
-  // register() {
-  //   this.nav.setRoot(RegisterPage);
-  // }
-
-  // login and go to home page
   login() {
     this.navCtrl.setRoot('page-home');
   }

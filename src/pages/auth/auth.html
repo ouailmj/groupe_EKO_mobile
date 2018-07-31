@@ -10,32 +10,32 @@
 		</div>
 
 		<div padding-vertical>
-		  <ion-segment [(ngModel)]="auth" color="light">
+		  <ion-segment color="light">
 		    <ion-segment-button value="login">
 		      Login
 		    </ion-segment-button>
 		  </ion-segment>
 		</div>
 
-		<div [ngSwitch]="auth">
+		<div>
 			<!-- Login form -->
-			<div id="loginForm" *ngSwitchCase="'login'">
-				<form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="list-form">
+			<div id="loginForm">
+				<form [formGroup]="authForm" (ngSubmit)="doLogin(authForm.value)" class="list-form">
 					<ion-item>
 						<ion-label floating>
-							<ion-icon name="mail" item-start class="text-white"></ion-icon>
-							Email
+							<ion-icon name="contact" item-start class="text-white"></ion-icon>
+							Username
 						</ion-label>
-						<ion-input type="email" formControlName="email" [(ngModel)]="regData.email"></ion-input>
+						<ion-input type="email" formControlName="username" [(ngModel)]="loginData.username"></ion-input>
 					</ion-item>
-					<p ion-text color="danger" class="text-1x has-error" *ngIf="authForm.get('email').touched && authForm.get('email').hasError('required')">This field is required</p>
+					<p ion-text color="danger" class="text-1x has-error" *ngIf="authForm.get('username').touched && authForm.get('username').hasError('required')">This field is required</p>
 
-					<ion-item>
+						<ion-item>
 						<ion-label floating>
 							<ion-icon name="lock" item-start class="text-white"></ion-icon>
 							Password
 						</ion-label>
-						<ion-input type="password" formControlName="password" [(ngModel)]="regData.plainPassword"></ion-input>
+						<ion-input type="password" formControlName="password" placeholder="Password" [(ngModel)]="loginData.password"></ion-input>
 					</ion-item>
 					<p ion-text	 color="danger" class="text-1x has-error" *ngIf="authForm.get('password').touched && authForm.get('password').hasError('required')">This field is required</p>
 					

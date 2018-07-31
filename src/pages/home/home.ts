@@ -1,3 +1,4 @@
+import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, MenuController, PopoverController } from 'ionic-angular';
 
@@ -19,10 +20,15 @@ export class HomePage {
   properties: Array<any>;
   searchKey: string = "";
 
-	constructor(public navCtrl: NavController, public menuCtrl: MenuController, public popoverCtrl: PopoverController, public service: PropertyService) {
+	constructor(public storage:Storage,public navCtrl: NavController, public menuCtrl: MenuController, public popoverCtrl: PopoverController, public service: PropertyService) {
 		this.menuCtrl.swipeEnable(true, 'authenticated');
 		this.menuCtrl.enable(true);
 		this.findAll();
+		this.storage.get("user").then(data=>{
+			console.log(data.email);
+		}).catch(err=>{
+			console.log(err);
+		})
   }
 
   openPropertyListPage(proptype) {

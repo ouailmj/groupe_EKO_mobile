@@ -17,6 +17,8 @@ import { ChatService } from "../providers/chat-service-mock";
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
+import { AuthProvider } from '../providers/auth/auth';
+import { ApiProvider } from '../providers/api/api';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { Keyboard } from '@ionic-native/keyboard';
     MessageService,
     InvoiceService,
     ChatService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthProvider,
+    ApiProvider,
   ]
 })
 export class AppModule {}
