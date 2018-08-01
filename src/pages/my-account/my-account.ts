@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, LoadingController, ToastController } from 'ionic-angular';
 import { ChangePasswordPage } from '../change-password/change-password';
+import { Storage } from '@ionic/storage';
+import { AuthProvider } from '../../providers/auth/auth';
+
 
 @IonicPage({
 	name: 'page-my-account',
@@ -14,9 +17,48 @@ import { ChangePasswordPage } from '../change-password/change-password';
 
 export class MyAccountPage {
   profiledata: Boolean = true;
-  isReadonly = true;
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
+  dataUser={
+    fullName:"",
+    username:"",
+    email:"",
+    address:"",
+    code:"",
+    fax:"",
+    phone:"",
+    type:"",
+    connexion:""
+  };
+  constructor(public authprov:AuthProvider ,public storage:Storage, public navCtrl: NavController, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
+    this.storage.get("user").then(data=>{
+      console.log(data);
 
+      this.dataUser.username = data.username;
+      this.dataUser.email = data.email;
+
+      if(data.roles[0]=="ROLE_SUPER_ADMIN"){
+        this.dataUser.type = "Administrator";
+      }else if(data.roles[0]=="ROLE_COLABORATOR"){
+        this.dataUser.type = "Collaborator";
+      }else{
+        this.dataUser.type = "User";
+      }
+
+      this.dataUser.connexion = data.lastLogin.substring(0,10);
+    
+    }).catch(err=>{
+			console.log("erreeeeee");
+    })
+
+    this.storage.get("userdata").then(data=>{
+      console.log(data);
+
+      this.dataUser.fullName = data.firstName + ' ' + data.lastName;
+      this.dataUser.address = data.addresses[0];
+      this.dataUser.code = data.postalCode;
+      this.dataUser.fax = data.faxNumber;
+      this.dataUser.phone = data.phoneNumber;
+    
+    })
   }
 
   // process send button

@@ -6,13 +6,6 @@ import {  HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 import {environment} from "../../environments/environment";
 
-
-/*
-  Generated class for the AuthProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class AuthProvider {
 
@@ -145,7 +138,7 @@ export class AuthProvider {
           headers = headers.set('Content-Type', 'application/json; charset=utf-8');
           headers = headers.set('Authorization', 'Bearer ' + tok);
 
-          this.apiProvider.post('/api/me/change-profile',credentials,{headers: headers}).then(rep=>{
+          this.apiProvider.put('/api/me/change-profile',credentials,{headers: headers}).then(rep=>{
 
               this.storage.set('token', rep.token);
 
@@ -179,7 +172,14 @@ export class AuthProvider {
       headers = headers.set('Authorization', 'Bearer ' + tok);
 
       this.apiProvider.get('/api/current-user',{headers: headers}).then(rep=>{
+          
+          this.apiProvider.get(rep.person ,{headers: headers}).then(repdata=>{
+             this.storage.set('userdata', repdata);
+          }).catch(error=>{
 
+            reject(error);
+
+          })
 
            this.storage.set('user', rep);
 

@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, ToastController, MenuController, LoadingController, NavParams } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { AuthProvider } from '../../providers/auth/auth';
+
+import { Storage } from '@ionic/storage';
 
 @IonicPage({
 	name: 'page-edit-password',
@@ -11,26 +14,39 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
   templateUrl: 'change-password.html',
 })
 export class ChangePasswordPage {
+  
   PassForm: FormGroup;
   loading: any;
-  PassData = { oldpass:"" , password:"", confirm_password:""};
-  constructor(public formBuilder: FormBuilder, public navParams: NavParams,public navCtrl: NavController , public forgotCtrl: AlertController, public menu: MenuController, private toastCtrl: ToastController,public loadingCtrl: LoadingController) {
+  user = {
+    "oldPassword": "",
+    "newPassword": "",
+    "repeatedPassword": ""
+  };
+
+
+
+  constructor(public storage:Storage,private authService:AuthProvider,public formBuilder: FormBuilder, public navParams: NavParams,public navCtrl: NavController , public forgotCtrl: AlertController, public menu: MenuController, private toastCtrl: ToastController,public loadingCtrl: LoadingController) {
     this.menu.swipeEnable(false);
     this.navCtrl = navCtrl;
     this.PassForm = formBuilder.group({      
-      oldpass: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
-      confirm_password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
-    });
+      oldPassword: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+      newPassword: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+      repeatedPassword: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+    },{validator: this.matchingPasswords('newPassword', 'repeatedPassword')});
   }
 
-  showLoader(){
-    this.loading = this.loadingCtrl.create({
-        content: 'Authenticating...'
-    });
+  matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
+    return (group: FormGroup): {[key: string]: any} => {
+      let password = group.controls[passwordKey];
+      let confirmPassword = group.controls[confirmPasswordKey];
 
-    this.loading.present();
-  }
+      if (password.value !== confirmPassword.value) {
+        return {
+          mismatchedPasswords: true
+        };
+      }
+    }
+}
 
   presentToast(msg) {
     let toast = this.toastCtrl.create({
@@ -50,27 +66,15 @@ export class ChangePasswordPage {
   onSubmit(): void {
     console.log("submit")
     if(this.PassForm.valid) {
-      if(this.PassData.password == this.PassData.confirm_password){
-        let loader = this.loadingCtrl.create({
-          content: "Please wait..."
-        });
-        let toast = this.toastCtrl.create({
-          showCloseButton: true,
-          cssClass: 'profiles-bg',
-          message: 'Your Data was Edited!',
-          duration: 3000,
-          position: 'bottom'
-        });
-        loader.present();
-        setTimeout(() => {
-          loader.dismiss();
-          toast.present();
-          // back to home page
+        this.showLoader();
+        this.authService.changePpassword(this.user).then(res=>{
+          console.log(res)
+          this.loading.dismiss();
           this.navCtrl.setRoot('page-home');
-        }, 3000)
-      }else{
-        this.presentToast("Passwords does not match");
-      }
+        }).catch(error=>{
+          console.log(error)
+        })
+          // back to home page
     }else{
       this.presentToast("Invalid data");
     }
@@ -79,6 +83,14 @@ export class ChangePasswordPage {
     
   ionViewDidLoad() {
     console.log('ionViewDidLoad ChangePasswordPage');
+  }
+
+  showLoader(){
+    this.loading = this.loadingCtrl.create({
+        content: 'Authenticating...'
+    });
+
+    this.loading.present();
   }
 
 }

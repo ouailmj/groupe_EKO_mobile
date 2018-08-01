@@ -17,8 +17,8 @@
 			    <ion-row>
 			      <ion-col col-12>
 		          <img src="assets/img/avatar.png">
-		          <h2 class="fw500">username</h2>
-		          <h3 ion-text color="light">Customer</h3>
+		          <h2 class="fw500">{{dataUser.username}}</h2>
+		          <h3 ion-text color="light">{{dataUser.type}}</h3>
 		          <button col col-md-6 offset-md-3 ion-button icon-start block outline margin-top color="light">
 		            <ion-icon name="photos"></ion-icon>
 		            Edit / Insert picture
@@ -35,43 +35,48 @@
 
 			        <ion-item>
 			          <ion-label color="dark" stacked><b>Full Name:</b></ion-label>
-			          <ion-input type="text" placeholder="Ex..: test" value=""></ion-input>
+			          <ion-input type="text" placeholder="Ex..: test" value="{{dataUser.fullName}}"></ion-input>
 			        </ion-item>
 
 							<ion-item>
 			          <ion-label color="dark" stacked><b>Username:</b></ion-label>
-			          <ion-input type="text" placeholder="Ex..: test" value=""></ion-input>
+			          <ion-input type="text" placeholder="Ex..: test" value="{{dataUser.username}}"></ion-input>
 			        </ion-item>
 
 			        <ion-item>
 			          <ion-label color="dark" stacked><b>Email:</b></ion-label>
-			          <ion-input type="email" placeholder="Ex.: test@test.com" value=""></ion-input>
+			          <ion-input type="email" placeholder="Ex.: test@test.com" value="{{dataUser.email}}"></ion-input>
 			        </ion-item>
 
 			        <ion-item>
 			          <ion-label color="dark" stacked><b>Address:</b></ion-label>
-			          <ion-input type="text" placeholder="Ex.: test"></ion-input>
+			          <ion-input type="text" placeholder="Ex.: 53 test" value="{{dataUser.address}}"></ion-input>
 			        </ion-item>
 
 							<ion-item>
 			          <ion-label color="dark" stacked><b>Code postal:</b></ion-label>
-			          <ion-input type="text" placeholder="Ex..: test" value=""></ion-input>
+			          <ion-input type="text" placeholder="Ex..: test" value="{{dataUser.code}}"></ion-input>
 			        </ion-item>
 							
 							<ion-item>
 			          <ion-label color="dark" stacked><b>Telephone:</b></ion-label>
-			          <ion-input type="text" placeholder="Ex..: test" value=""></ion-input>
+			          <ion-input type="text" placeholder="Ex..: test" value="{{dataUser.phone}}"></ion-input>
+			        </ion-item>
+
+							<ion-item>
+			          <ion-label color="dark" stacked><b>Telephone:</b></ion-label>
+			          <ion-input type="text" placeholder="Ex..: test" value="{{dataUser.fax}}"></ion-input>
 			        </ion-item>
 
 							<ion-item>
 			          <ion-label color="dark" stacked><b>Type:</b></ion-label>
-			          <ion-input type="text" placeholder="" value=""></ion-input>
+			          <ion-input type="text" placeholder="" value="{{dataUser.type}}"></ion-input>
 			        </ion-item>
 
 
 							<ion-item>
 			          <ion-label color="dark" stacked><b>Derniere connexion:</b></ion-label>
-			          <ion-input type="text" [disabled]="isReadonly" readonly="true"></ion-input>
+			          <ion-input type="text"  readonly="true" value="{{dataUser.connexion}}"></ion-input>
 							</ion-item>
 							
 			      </ion-list>

@@ -24,10 +24,18 @@ export class HomePage {
 		this.menuCtrl.swipeEnable(true, 'authenticated');
 		this.menuCtrl.enable(true);
 		this.findAll();
+
 		this.storage.get("user").then(data=>{
-			console.log(data.email);
+			console.log(data);
+
 		}).catch(err=>{
-			console.log(err);
+			console.log("erreeeeee");
+			
+		})
+		this.storage.get("userdata").then(data=>{
+			console.log(data);
+		}).catch(err=>{
+			console.log("erreeeeee");
 		})
   }
 
