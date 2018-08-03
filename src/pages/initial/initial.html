@@ -14,8 +14,8 @@
 						<h2 class="slide-title text-white" [innerHTML]="slide.title"></h2>
 						<p [innerHTML]="slide.description" class="text-white"></p>
 
-						<div padding>
-							<button ion-button round block color="secondary" margin-top icon-end (click)="onSlideNext()">
+						<div padding-left padding-right class="button-next">
+							<button ion-button round block color="secondary" icon-end (click)="onSlideNext()">
 								Next
 								<ion-icon name="arrow-round-forward" color="light"></ion-icon>
 							</button>

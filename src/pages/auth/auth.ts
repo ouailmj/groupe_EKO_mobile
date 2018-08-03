@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, ToastController, MenuController, LoadingController, NavParams } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Storage } from '@ionic/storage';
 
 @IonicPage({
 	name: 'page-auth',
@@ -16,6 +17,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 })
 
 export class AuthPage{
+  auth: string = "login";
   loading: any;
   loginData:UserData = {
     username:'admin',
@@ -31,12 +33,21 @@ export class AuthPage{
      public forgotCtrl: AlertController, 
      private menu: MenuController, 
      private toastCtrl: ToastController,
-     public loadingCtrl: LoadingController) {
+     public loadingCtrl: LoadingController,
+     public storage:Storage
+    ) {
     
     this.menu.swipeEnable(false);
     this.menu.enable(false);
     
     this.navCtrl = navCtrl;
+
+    this.storage.get("user").then(data=>{
+      this.storage.remove('token');
+      this.storage.remove('user');
+    }).catch(error => {
+      console.log(error.status);
+    });
     
     this.authForm = formBuilder.group({      
     
@@ -47,17 +58,13 @@ export class AuthPage{
   }
 
   doLogin(value : any) {
-
     if(this.authForm.valid) {
       this.showLoader();
       this.authService.login(this.loginData).then((result) => {
 
           console.log(result.token);
-
-          this.loading.dismiss();
-
           this.getUserInfo();
-          this.presentToast("welcome");
+            
 
       }
       ).catch(err=>{
@@ -75,7 +82,9 @@ export class AuthPage{
   getUserInfo(){
 
     this.authService.getUserProfil().then(res=>{
-      this.navCtrl.setRoot('page-home');    
+      this.navCtrl.setRoot('page-home');
+      this.loading.dismiss();
+      this.presentToast("welcome");
     })
 
   }

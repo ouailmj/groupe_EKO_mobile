@@ -2,6 +2,8 @@ import {Component, ViewChild} from '@angular/core';
 import {Nav, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
+import { Storage } from '@ionic/storage';
+
 
 export interface MenuItem {
 	title: string;
@@ -36,7 +38,7 @@ export class ionPropertyApp {
 
 	helpMenuItems: Array<MenuItem>;
 
-	constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+	constructor(public storage:Storage, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
 		this.initializeApp();
 
 		this.homeItem = {component: 'page-home' };
@@ -82,6 +84,14 @@ export class ionPropertyApp {
 	openPage(page) {
 		// Reset the content nav to have just this page
 		// we wouldn't want the back button to show in this scenario
+		if(page=='accountMenuItems[0]'){
+			this.storage.get("user").then(data=>{
+				this.storage.remove('token');
+				this.storage.remove('user');
+			}).catch(error => {
+				console.log(error.status);
+			  });
+		}
 		this.nav.setRoot(page.component);
 	}
 }

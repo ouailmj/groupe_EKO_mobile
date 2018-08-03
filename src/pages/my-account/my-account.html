@@ -33,9 +33,9 @@
 		      <ion-col col-12>
 			      <ion-list>
 
-			        <ion-item>
+			        <ion-item class="ion-item-data">
 			          <ion-label color="dark" stacked><b>Full Name:</b></ion-label>
-			          <ion-input type="text" placeholder="Ex..: test" value="{{dataUser.fullName}}"></ion-input>
+			          <ion-input #focusInput type="text" class="data-user"  placeholder="Ex..: test" value="{{dataUser.fullName}}"></ion-input>
 			        </ion-item>
 
 							<ion-item>
@@ -70,9 +70,8 @@
 
 							<ion-item>
 			          <ion-label color="dark" stacked><b>Type:</b></ion-label>
-			          <ion-input type="text" placeholder="" value="{{dataUser.type}}"></ion-input>
+			          <ion-input type="text" readonly="true" placeholder="" value="{{dataUser.type}}"></ion-input>
 			        </ion-item>
-
 
 							<ion-item>
 			          <ion-label color="dark" stacked><b>Derniere connexion:</b></ion-label>

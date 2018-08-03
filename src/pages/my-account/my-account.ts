@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, LoadingController, ToastController } from 'ionic-angular';
 import { ChangePasswordPage } from '../change-password/change-password';
 import { Storage } from '@ionic/storage';
@@ -16,6 +16,8 @@ import { AuthProvider } from '../../providers/auth/auth';
 })
 
 export class MyAccountPage {
+ 
+  @ViewChild('input') myInput ;
   profiledata: Boolean = true;
   dataUser={
     fullName:"",

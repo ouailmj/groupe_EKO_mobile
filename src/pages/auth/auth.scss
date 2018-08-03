@@ -1,5 +1,16 @@
 page-auth,
 .auth {
+
+  .item.item-block .item-inner{
+    padding-right: 0px;
+  }
+
+  .valid-value.ng-valid{
+    border-bottom: 1px solid #32db64;
+  }
+  .valid-value{
+    width:100%;
+  }
   .grid {
     padding: 0;
     .col {

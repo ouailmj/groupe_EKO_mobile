@@ -70,9 +70,11 @@ export class ChangePasswordPage {
         this.authService.changePpassword(this.user).then(res=>{
           console.log(res)
           this.loading.dismiss();
+          this.presentToast("updated succesfully");
           this.navCtrl.setRoot('page-home');
         }).catch(error=>{
-          console.log(error)
+          console.log(error);
+          this.presentToast("Invalid data");    
         })
           // back to home page
     }else{
