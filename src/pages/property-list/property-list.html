@@ -20,51 +20,48 @@
 
 <ion-content class="lightest-bg">
 
-	<div padding-horizontal padding-top>
+	<div padding-horizontal padding-top >
 	  <ion-segment [(ngModel)]="proptype">
 	    <ion-segment-button value="">
 	      All
-	    </ion-segment-button>
-	    <ion-segment-button value="answered">
-	      Answered
-	    </ion-segment-button>
-	    <ion-segment-button value="not answered">
+			</ion-segment-button>
+			<ion-segment-button value="answered">
+				Answered
+			</ion-segment-button>
+			<ion-segment-button value="unanswered">
 	      Not answered
 	    </ion-segment-button>
 	  </ion-segment>
 	</div>
 
   <ion-grid no-padding>
-	  <ion-row>
+	  <ion-row  *ngIf="viewMode === 'list'">
 			<ion-col col col-12 col-md-6 *ngFor="let property of properties | termSearch:proptype:'label'" >
 	      <ion-card margin-bottom no-padding>
 	        <div class="card-img-wrap">
-	          <span ion-text class="card-img-status sale fw300 text-white" [ngClass]="{'rent': property.label === 'rent', 'sale': property.label === 'sale'}">
+	          <span ion-text class="card-img-status sale fw300 text-white" [ngClass]="{'rent': property.label == 'answered', 'sale': property.label == 'unanswered'}">
+							{{property.label}}
 	          </span>
 	        </div>
 	        <ion-card-content>
-	          <ion-card-title ion-text color="dark" tappable (click)="openPropertyDetail(property)" no-margin no-padding>
-							object
+	          <ion-card-title ion-text color="primary" tappable (click)="openPropertyDetail(property)" no-margin no-padding>
+								{{property.title}}
 						</ion-card-title>
-	          <p ion-text color="primary" no-margin>
-							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi vitae non incidunt fugit quis modi adipisci, quos facilis nam consequuntur culpa repellendus sunt exercitationem delectus assumenda quas ullam perferendis atque.
+	          <p ion-text color="dark" no-margin>
+								{{property.description}}
 						</p>
 
 	          <hr margin-vertical>
 
 	          <p ion-text color="dark">
-	            <ion-icon name="heart"></ion-icon> 3 |
-							<ion-icon name="ios-eye"></ion-icon> 4 |
+	            <ion-icon name="heart" color="danger"></ion-icon>&nbsp;  3 | &nbsp;
+							<ion-icon name="ios-eye" color="primary"></ion-icon>&nbsp;  4  &nbsp;| &nbsp;
 							5	 answers
 							
 	          </p>
 	        </ion-card-content>
 	      </ion-card>
 			</ion-col>
-	  </ion-row>
-
-	  <ion-row *ngIf="viewMode === 'map'">
-	  	<ion-col style="width:100%; height:100vh;" id="map" no-padding></ion-col>
 	  </ion-row>
 
 	</ion-grid>
@@ -75,9 +72,6 @@
     <ion-segment [(ngModel)]="viewMode">
         <ion-segment-button value="list">
             <ion-icon name="list"></ion-icon>
-        </ion-segment-button>
-        <ion-segment-button value="map" (ionSelect)="showMap()">
-            <ion-icon name="map"></ion-icon>
         </ion-segment-button>
     </ion-segment>
 </ion-footer>

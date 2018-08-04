@@ -3,7 +3,7 @@ let topics: Array<any> = [
         id: 1,
         title: "object1",
         description: "description1",
-        label: "unanswered",        
+        label: "answered",        
     },
     {
         id: 2,
