@@ -18,4 +18,20 @@ page-home {
 		box-shadow: none;
 		height: 3rem;
 	}
+	.main-styled-border::after{
+		background-color: #5d9d9c;
+		width: 110px;
+		margin-left: -54px;
+	}
+	.item h2{
+		font-weight: bold
+	}
+
+	.bar-button-ios {
+		font-size: 1.2em;
+	}
+	.item-ios .item-button {
+		font-size: 1.8rem;
+	}
+	
 }

@@ -4,7 +4,6 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 
-
 export interface MenuItem {
 	title: string;
 	component: any;
@@ -38,9 +37,26 @@ export class ionPropertyApp {
 
 	helpMenuItems: Array<MenuItem>;
 
+	dataUser = {
+		username:"",
+		type:""
+	};
+
 	constructor(public storage:Storage, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
 		this.initializeApp();
+		this.storage.get("user").then(data=>{
+			this.dataUser.username = data.username;
+			if(data.roles[0]=="ROLE_SUPER_ADMIN"){
+				this.dataUser.type = "Administrator";
+			}else if(data.roles[0]=="ROLE_COLABORATOR"){
+				this.dataUser.type = "Collaborator";
+			}else{
+				this.dataUser.type = "User";
+			}
 
+		}).catch(error => {
+      		console.log(error.status);
+    	});
 		this.homeItem = {component: 'page-home' };
 		this.initialItem = {component: 'page-initial'};
 		this.messagesItem = {component: 'page-message-list'};
@@ -54,10 +70,6 @@ export class ionPropertyApp {
 			{title: 'Notification', component: 'page-favorite-list', icon: 'heart'},
 			{title: 'Ask for a topic', component: 'page-pre-approved', icon: 'md-help-circle'},
 		];
-
-		this.yourPropertyMenuItems = [
-		];
-
 
 		this.accountMenuItems = [
 			{title: 'Authentication', component: 'page-auth', icon: 'log-in'},

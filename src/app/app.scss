@@ -323,3 +323,17 @@ ion-card {
 .item-input .has-focus .label-ios[stacked], .input-has-focus .label-ios[stacked] {
 	color: #5d9d9c;
 } 
+
+.toggle-ios{
+	height: 20px;
+	width: 44px;
+}
+.toggle-ios .toggle-inner {
+	left: 3px;
+	top: -1px;
+	width: 21px;
+    height: 21px;
+}
+.bar-button-ios {
+	padding: 0 5px;
+}

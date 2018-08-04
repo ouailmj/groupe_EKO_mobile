@@ -15,9 +15,9 @@
 			<ion-col no-padding>
 				<!-- User settings-->
 				<ion-item-group>
-					<ion-item-divider color="dark" class="bold">User Settings</ion-item-divider>
+					<ion-item-divider color="primary" class="bold">User Settings</ion-item-divider>
 					<ion-item>
-						<ion-label>Language</ion-label>
+						<ion-label>Language :</ion-label>
 						<ion-select [(ngModel)]="language" cancelText="Cancel" okText="OK">
 							<ion-option value="en-US" selected="true">English (US)</ion-option>
 							<ion-option value="en-GB">English (UK)</ion-option>
@@ -36,30 +36,22 @@
 						</ion-select>
 					</ion-item>
 					<ion-item>
-						<ion-label>Currency</ion-label>
+						<ion-label>Currency :</ion-label>
 						<ion-select [(ngModel)]="currency" cancelText="Cancel" okText="OK">
 							<ion-option value="USD" selected="true">U.S Dollar (US$)</ion-option>
 							<ion-option value="EUR">Euro (€)</ion-option>
 							<ion-option value="GBP">Pound (£)</ion-option>
 							<ion-option value="BRL">Brazilian Real (R$)</ion-option>
-							<ion-option value="CNY">Chinese Yuan</ion-option>
 						</ion-select>
 					</ion-item>
 					<ion-item>
-						<ion-label>Units</ion-label>
-						<ion-select [(ngModel)]="munits" cancelText="Cancel" okText="OK">
-							<ion-option value="F" selected="true">Foots (ft²)</ion-option>
-							<ion-option value="M">Meters (m²)</ion-option>
-						</ion-select>
-					</ion-item>
-					<ion-item>
-						<ion-label>Profile Messages?</ion-label>
+						<ion-label>Profile Messages :</ion-label>
 						<ion-toggle checked="true"></ion-toggle>
 					</ion-item>
 				</ion-item-group>
 				<!-- App settings-->
 				<ion-item-group>
-					<ion-item-divider color="dark" class="bold">App Settings</ion-item-divider>
+					<ion-item-divider color="primary" class="bold">App Settings</ion-item-divider>
 					<ion-item>
 						<span>Clear Private Data</span>
 					</ion-item>
@@ -75,8 +67,5 @@
 			</ion-col>
 		</ion-row>
 	</ion-grid>
-
-  <!--sign out button-->
-  <!-- <button ion-button color="primary" full tappable (click)="logout()">LOG OUT</button> -->
 
 </ion-content>

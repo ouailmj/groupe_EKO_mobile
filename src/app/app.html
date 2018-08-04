@@ -14,11 +14,11 @@
 	            </ion-avatar>
 
 	            <h2 ion-text class="text-white fw700 text-15x">
-	              Username
+	              {{dataUser.username}}
 	            </h2>
 
 	            <ion-badge color="light" class="text-primary">
-	            	<ion-icon name="open"></ion-icon> type
+	            	<ion-icon name="open"></ion-icon> {{dataUser.type}}
 	            </ion-badge>
 	          </ion-item>
 	        </ion-list>
@@ -76,16 +76,6 @@
 	        <span ion-text color="dark" class="fw500">Forum</span>
 	      </ion-list-header>
 	      <button menuClose ion-item *ngFor="let menuItem of appMenuItems" (click)="openPage(menuItem)">
-	        <ion-icon item-left [name]="menuItem.icon"></ion-icon>
-	        {{menuItem.title}}
-	      </button>
-	    </ion-list>
-
-	    <ion-list>
-	      <ion-list-header no-margin>
-	        <span ion-text color="dark" class="fw500">Your Property</span>
-	      </ion-list-header>
-	      <button menuClose ion-item *ngFor="let menuItem of yourPropertyMenuItems" (click)="openPage(menuItem)">
 	        <ion-icon item-left [name]="menuItem.icon"></ion-icon>
 	        {{menuItem.title}}
 	      </button>

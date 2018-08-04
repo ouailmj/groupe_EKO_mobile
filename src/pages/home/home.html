@@ -22,10 +22,10 @@
   <ion-grid no-padding>
     <ion-row>
       <ion-col col-6 no-padding>
-        <button ion-button full large no-margin color="danger" (click)="openPropertyListPage({proptype: 'sale', from: 'home'})">Unanswered</button>
+        <button ion-button full large no-margin color="danger" (click)="openPropertyListPage({proptype: 'unanswered', from: 'home'})">Unanswered</button>
       </ion-col>
       <ion-col col-6 no-padding>
-        <button ion-button full large no-margin color="primary" (click)="openPropertyListPage({proptype: 'rent', from: 'home'})">Answered</button>
+        <button ion-button full large no-margin color="primary" (click)="openPropertyListPage({proptype: 'answered', from: 'home'})">Answered</button>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -44,11 +44,11 @@
 		<ion-row>
 
 			<button ion-item col col-12 col-md-6 *ngFor="let property of properties" (click)="openPropertyDetail(property)">
-				<h2 ion-text color="primary">Object</h2>
-				<h3 ion-text color="dark">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum, at eligendi delectus vero non aliquam totam adipisci ipsam natus debitis praesentium quo eius voluptatibus mollitia facere, ut beatae excepturi dolorem?</h3>
+				<h2 ion-text color="primary">{{property.title}}</h2>
+				<h3 ion-text color="dark">{{property.description}}</h3>
 				<p ion-text color="dark">
-					<ion-icon name="heart"></ion-icon> 3 |
-					<ion-icon name="ios-eye"></ion-icon> 4 |
+						&nbsp; <ion-icon name="heart" color="danger"></ion-icon>  3  &nbsp;  |
+						&nbsp; <ion-icon name="ios-eye" color="primary"></ion-icon>  4  &nbsp;  |  &nbsp;
 					5	 answers
 				</p>
 				<button ion-button round item-end color="light">
