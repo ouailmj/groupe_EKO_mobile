@@ -158,6 +158,48 @@ export class AuthProvider {
 
   }
 
+  getUserProfiles(): Promise<any>{
+
+
+    return new Promise((resolve, reject) => {
+  
+  
+        this.storage.get('token').then(tok=>{
+  
+        let headers = new HttpHeaders();
+  
+        headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+        headers = headers.set('Authorization', 'Bearer ' + tok);
+        this.storage.get('auteur').then(auteurdata => {
+          this.apiProvider.get(auteurdata,{headers: headers}).then(rep=>{
+              console.log(rep.id);
+              this.apiProvider.get('/api/users/'+rep.id ,{headers: headers}).then(repdata=>{
+                 this.storage.set('auteurdata', repdata);
+              }).catch(error=>{
+    
+                reject(error);
+    
+              })
+    
+                resolve("ok");
+
+              }).catch(error=>{
+    
+                reject(error);
+    
+              })
+          }).catch(error=>{
+    
+            reject('erro');
+          })
+
+        })
+  
+  
+    })
+  
+    }
+
   getUserProfil(): Promise<any>{
 
 

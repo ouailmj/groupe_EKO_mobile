@@ -1,7 +1,7 @@
-import { Storage } from '@ionic/storage';
+import { TopicProvider } from './../../providers/topic/topic';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, MenuController, PopoverController } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams, MenuController, PopoverController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 import { PropertyService } from '../../providers/property-service-mock';
 
 @IonicPage({
@@ -19,15 +19,21 @@ export class HomePage {
 
   properties: Array<any>;
   searchKey: string = "";
-
-	constructor(public storage:Storage,public navCtrl: NavController, public menuCtrl: MenuController, public popoverCtrl: PopoverController, public service: PropertyService) {
+	topics :any [];
+	constructor(public storage:Storage,
+		public navCtrl: NavController, 
+		public menuCtrl: MenuController, 
+		public popoverCtrl: PopoverController, 
+		public service: PropertyService,
+		public navParams: NavParams,
+		public topicProvider: TopicProvider
+	) {
 		this.menuCtrl.swipeEnable(true, 'authenticated');
 		this.menuCtrl.enable(true);
-		this.findAll();
-
+		
 		this.storage.get("user").then(data=>{
-			console.log(data);
-
+			console.log(data);			
+			console.log(data.person);
 		}).catch(err=>{
 			console.log("erreeeeee");
 			
@@ -37,11 +43,22 @@ export class HomePage {
 		}).catch(err=>{
 			console.log("erreeeeee");
 		})
+
+		this.topicProvider.getEvents().then(data=>{
+			this.topics = data;
+			this.storage.set('dataconv', data);
+			console.log(data);
+		});
+		this.findAll();
   }
+
+	senddata(data :Array<any>){
+		return data;
+	}
 
   openPropertyListPage(proptype) {
   	// console.log(proptype);
-		this.navCtrl.push('page-property-list', proptype);
+		this.navCtrl.push('page-property-list');
   }
 
 	openPropertyDetail(property: any) {

@@ -61,9 +61,9 @@ export class PropertyListPage {
         this.service.findByName(this.searchKey)
             .then(data => {
                 this.properties = data;
-                if (this.viewMode === "map") {
-                    this.showMarkers();
-                }
+                //if (this.viewMode === "map") {
+                 //   this.showMarkers();
+                //}
             })
             .catch(error => alert(JSON.stringify(error)));
     }
@@ -78,29 +78,29 @@ export class PropertyListPage {
             .catch(error => alert(error));
     }
 
-    showMap() {
-        setTimeout(() => {
-            this.map = leaflet.map("map").setView([42.361132, -71.070876], 14);
-            leaflet.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-                attribution: 'Tiles &copy; Esri'
-            }).addTo(this.map);
-            this.showMarkers();
-        })
-    }
+    // showMap() {
+    //     setTimeout(() => {
+    //         this.map = leaflet.map("map").setView([42.361132, -71.070876], 14);
+    //         leaflet.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+    //             attribution: 'Tiles &copy; Esri'
+    //         }).addTo(this.map);
+    //         this.showMarkers();
+    //     })
+    // }
 
-    showMarkers() {
-        if (this.markersGroup) {
-            this.map.removeLayer(this.markersGroup);
-        }
-        this.markersGroup = leaflet.layerGroup([]);
-        this.properties.forEach(property => {
-            if (property.lat, property.long) {
-                let marker: any = leaflet.marker([property.lat, property.long]).on('click', event => this.openPropertyDetail(event.target.data));
-                marker.data = property;
-                this.markersGroup.addLayer(marker);
-            }
-        });
-        this.map.addLayer(this.markersGroup);
-    }
+    // showMarkers() {
+    //     if (this.markersGroup) {
+    //         this.map.removeLayer(this.markersGroup);
+    //     }
+    //     this.markersGroup = leaflet.layerGroup([]);
+    //     this.properties.forEach(property => {
+    //         if (property.lat, property.long) {
+    //             let marker: any = leaflet.marker([property.lat, property.long]).on('click', event => this.openPropertyDetail(event.target.data));
+    //             marker.data = property;
+    //             this.markersGroup.addLayer(marker);
+    //         }
+    //     });
+    //     this.map.addLayer(this.markersGroup);
+    // }
 
 }

@@ -44,8 +44,8 @@
 		<ion-row>
 
 			<button ion-item col col-12 col-md-6 *ngFor="let property of properties" (click)="openPropertyDetail(property)">
-				<h2 ion-text color="primary">{{property.title}}</h2>
-				<h3 ion-text color="dark">{{property.description}}</h3>
+				<h2 ion-text color="primary">{{property.titre}} <span class="categorie"> ( {{property.categorie}} ) </span></h2>
+				<h3 ion-text color="dark">{{property.question}}</h3>
 				<p ion-text color="dark">
 						&nbsp; <ion-icon name="heart" color="danger"></ion-icon>  3  &nbsp;  |
 						&nbsp; <ion-icon name="ios-eye" color="primary"></ion-icon>  4  &nbsp;  |  &nbsp;

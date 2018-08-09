@@ -1,45 +1,61 @@
 let topics: Array<any> = [
     {
         id: 1,
-        title: "object1",
-        description: "description1",
-        label: "answered",        
+        titre: "object1",
+        question: "question1",
+        categorie: "1",
+        status: "answered",
+        auteur: "test",
     },
     {
         id: 2,
-        title: "object2",
-        description: "description2",
-        label: "unanswered",        
+        titre: "object2",
+        question: "question2",
+        categorie: "1",
+        status: "unanswered",
+        auteur: "test"        
+
     },
     {
         id: 3,
-        title: "object3",
-        description: "description3",
-        label: "answered",        
+        titre: "object3",
+        question: "question3",
+        categorie: "1",
+        status: "answered",
+        auteur: "test"        
+
     },
     {
         id: 4,
-        title: "object4",
-        description: "description4",
-        label: "answered",        
+        titre: "object4",
+        question: "question4",
+        categorie: "1",
+        status: "answered",        
+        auteur: "test"        
     },
     {
         id: 5,
-        title: "object5",
-        description: "description5",
-        label: "unanswered",        
+        titre: "object5",
+        question: "question5",
+        categorie: "1",
+        status: "unanswered",        
+        auteur: "test"        
     },
     {
         id: 6,
-        title: "object6",
-        description: "description6",
-        label: "answered",        
+        titre: "object6",
+        question: "question6",
+        categorie: "1",
+        status: "answered",        
+        auteur: "test"        
     },
     {   
         id: 7,
-        title: "object7",
-        description: "description7",
-        label: "answered",        
+        titre: "object7",
+        question: "question7",
+        categorie: "1",
+        status: "answered",        
+        auteur: "test"        
     },
 ]
 export default topics;

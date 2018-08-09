@@ -13,3 +13,26 @@ ion-card {
 .list-md {
     margin-top: 0;
 }
+
+.ligne{
+  display:flex;
+}
+.button-left{
+  width:65px;
+}
+.card{
+  width: 98%;
+  margin: auto;
+  margin-top:10px;
+  margin-bottom:20px
+}
+.input-wrapper{
+  overflow:visible;
+}
+
+.item-ios[detail-push] .item-inner, button.item-ios:not([detail-none]) .item-inner, a.item-ios:not([detail-none]) .item-inner{
+  background-image: none;
+}
+.card-content-property{
+  padding-top: 0px;
+}

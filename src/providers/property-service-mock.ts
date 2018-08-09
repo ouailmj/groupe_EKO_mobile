@@ -1,16 +1,36 @@
 import {Injectable} from '@angular/core';
 import properties from './mock-properties';
 import topics from './mock-topic';
+import { Storage } from '@ionic/storage';
+import { ApiProvider } from "./api/api";
 
 @Injectable()
 export class PropertyService {
-
+  
+  properties: Array<any> ;
   favoriteCounter: number = 0;
-	favorites: Array<any> = [];
-	properties: Array<any> = topics;
+  favorites: Array<any> = [];
+  constructor(public storage:Storage,public apiProvider: ApiProvider){
+    this.storage.get('dataconv').then(data => {
+      console.log(data);
+      console.log(data.auteur);
+      this.properties = data;
+		}).catch(err=>{
+			console.log(err);
+		})
 
-  findAll() {
-    return Promise.resolve(this.properties);
+  }
+
+  findAll(): Promise<any> {
+
+    return new Promise((resolve, reject) => {
+      this.storage.get('dataconv').then(data=>{
+        resolve(data)
+      }).catch(error=>{
+        reject(error.error.violations)
+      })
+    })
+
   }
 
 	getProperties() {
@@ -33,7 +53,7 @@ export class PropertyService {
   findByName(searchKey: string) {
     let key: string = searchKey.toUpperCase();
 		return Promise.resolve(this.properties.filter((property: any) =>
-        (property.title + ' ' +property.description).toUpperCase().indexOf(key) > -1));
+        (property.titre + ' ' +property.question).toUpperCase().indexOf(key) > -1));
   }
 
   getFavorites() {

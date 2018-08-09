@@ -19,6 +19,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
 import { AuthProvider } from '../providers/auth/auth';
 import { ApiProvider } from '../providers/api/api';
+import { TopicProvider } from '../providers/topic/topic';
+import { MytopicProvider } from '../providers/mytopic/mytopic';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,8 @@ import { ApiProvider } from '../providers/api/api';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     ApiProvider,
+    TopicProvider,
+    MytopicProvider,
   ]
 })
 export class AppModule {}

@@ -36,19 +36,19 @@
 
   <ion-grid no-padding>
 	  <ion-row  *ngIf="viewMode === 'list'">
-			<ion-col col col-12 col-md-6 *ngFor="let property of properties | termSearch:proptype:'label'" >
+			<ion-col col col-12 col-md-6 *ngFor="let property of properties | termSearch:proptype:'status'" >
 	      <ion-card margin-bottom no-padding>
 	        <div class="card-img-wrap">
-	          <span ion-text class="card-img-status sale fw300 text-white" [ngClass]="{'rent': property.label == 'answered', 'sale': property.label == 'unanswered'}">
-							{{property.label}}
+	          <span ion-text class="card-img-status sale fw300 text-white" [ngClass]="{'rent': property.status == 'answered', 'sale': property.status == 'unanswered'}">
+							{{property.status}}
 	          </span>
 	        </div>
 	        <ion-card-content>
 	          <ion-card-title ion-text color="primary" tappable (click)="openPropertyDetail(property)" no-margin no-padding>
-								{{property.title}}
+								{{property.titre}}  <span class="categorie"> ( {{property.categorie}} ) </span>
 						</ion-card-title>
 	          <p ion-text color="dark" no-margin>
-								{{property.description}}
+								{{property.question}}
 						</p>
 
 	          <hr margin-vertical>
@@ -68,7 +68,7 @@
 
 </ion-content>
 
-<ion-footer padding>
+<ion-footer class="footer-segment" padding>
     <ion-segment [(ngModel)]="viewMode">
         <ion-segment-button value="list">
             <ion-icon name="list"></ion-icon>

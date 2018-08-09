@@ -12,25 +12,31 @@
 			<ion-col>
 
 				<ion-card *ngIf="property.id">
-					<button ion-item (click)="openBrokerDetail(property.broker)" color="light">
+					<div class="ligne">
+						<button ion-item (click)="openBrokerDetail(2)" color="light">
 							<ion-avatar item-left>
 								<img src="assets/img/avatar.png"/>
 							</ion-avatar>
-							<h2 ion-text color="dark" class="fw500">username</h2>
-							<p ion-text color="primary">Il y'a un mois</p>
-					</button>
-					<ion-card-content class="light-mb">
+							<h2 ion-text color="dark" class="fw500"><b>{{ dataauteur.username }}</b></h2>
+							<p ion-text class="datepost" color="primary">Le {{ property.datePost.substring(0,10) }} à {{ property.datePost.substring(11,13) }}h:{{ property.datePost.substring(14,16) }}</p>
+							<p ion-text color="primary" *ngIf="property.dateEdit != null" >Edited</p>
+						</button>
+						<button ion-item (click)="delete()" color="light" class="button-left">
+							<ion-icon item-left color="primary" name="ios-arrow-dropdown"></ion-icon>
+						</button>
+					</div>
+					<ion-card-content class="card-content-property light-mb">
 						<br>
-							<h2 ion-text color="primary" class="card-title">Object</h2>
+							<h2 ion-text color="primary" class="card-title">{{property.titre}}</h2>
 							<hr>
-							<p ion-text color="dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aliquid perspiciatis repellat quae excepturi hic. Voluptate, quo qui vero nulla debitis aperiam nobis id omnis excepturi est itaque placeat amet?</p>
+							<p ion-text color="dark">{{property.question}}</p>
 						</ion-card-content>
 						
 						<ion-list>
-						<ion-item>
-								<ion-icon item-left name="heart"></ion-icon>
-								<h3>3 personnes aime ca</h3>
-								<h3>33 personnes ont commenté ce topic</h3>
+						<ion-item color="primary">
+								<ion-icon item-left color="danger" name="heart"></ion-icon>
+								<p>3 personnes aime ca</p>
+								<p>33 personnes ont commenté ce topic</p>
 						</ion-item>
 					</ion-list>
 
