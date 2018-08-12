@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import {ApiProvider} from "../api/api";
 import {HttpHeaders} from "@angular/common/http";
 import {  LoadingController, ToastController } from 'ionic-angular';
+import {ChoosePlanData, EventInformationData, PaymentData} from "../types/eventData";
 
 /*
   Generated class for the TopicProvider provider.
@@ -56,5 +57,34 @@ export class TopicProvider {
 
     })
 
-}
+    }
+
+    addChoosePlan(choosePlanData: ChoosePlanData): Promise<any>{
+
+        return new Promise((resolve, reject) => {
+
+
+            this.storage.get('token').then(tok=>{
+
+                let headers = new HttpHeaders();
+                headers = headers.set('Content-Type', 'application/json');
+                this.apiProvider.post("/api/conversations", choosePlanData,{headers: headers}).then(rep=>{
+                    console.log(rep)
+                    resolve("ok");
+
+                }).catch(error=>{
+
+
+                    reject(error);
+
+                })
+            }).catch(error => {
+                console.log(error.status);
+            });
+
+
+        })
+
+    }
+
 }

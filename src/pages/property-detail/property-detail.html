@@ -19,7 +19,7 @@
 							</ion-avatar>
 							<h2 ion-text color="dark" class="fw500"><b>{{ dataauteur.username }}</b> ({{dataauteur.type}})</h2>
 							<p ion-text class="datepost" color="primary">{{ property.datePost | date:'medium' }}</p>
-							<p ion-text color="primary" *ngIf="property.dateEdit != null" >Edited</p>
+							<p ion-text color="primary" *ngIf="property.dateEdit != null || property.dateEdit == property.datePost" >Edited</p>
 						</button>
 						<button ion-item (click)="edit()" color="light" class="button-left">
 							<ion-icon item-left color="primary" name="ios-arrow-dropdown"></ion-icon>

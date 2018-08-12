@@ -1,7 +1,9 @@
+import { Storage } from '@ionic/storage';
+import { ChoosePlanData } from './../../providers/types/eventData';
+import { TopicProvider } from './../../providers/topic/topic';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { IonicPage, NavController, LoadingController, ToastController } from 'ionic-angular';
-
 @IonicPage({
 	name: 'page-pre-approved',
 	segment: 'preapproved'
@@ -14,9 +16,25 @@ import { IonicPage, NavController, LoadingController, ToastController } from 'io
 export class PreApprovedPage implements OnInit {
 
   public onApprovedForm: FormGroup;
-
-  constructor(private _fb: FormBuilder, public navCtrl: NavController, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
-
+  ChoosePlanData:ChoosePlanData = {
+    titre: "",
+    categorie: "",
+    status: "unanswered",
+    question: "",
+    datePost: "",
+    dateEdit: "",
+    auteur: "",
+    commentaires: [],
+    ConversationUsers: []
+  };
+  constructor(
+    private _fb: FormBuilder, 
+    public navCtrl: NavController, 
+    public loadingCtrl: LoadingController, 
+    public toastCtrl: ToastController,
+    public topic:TopicProvider,
+    public storage:Storage
+  ) {
   }
 
   ngOnInit() {
@@ -51,33 +69,31 @@ export class PreApprovedPage implements OnInit {
     toast.present();
   }
 
-  // process send button
-  sendData() {
+
+  onSubmit(){
     if(this.onApprovedForm.valid){
       // send booking info
       let loader = this.loadingCtrl.create({
         content: "Please wait..."
       });
-      // show message
-      let toast = this.toastCtrl.create({
-        showCloseButton: true,
-        cssClass: 'profiles-bg',
-        message: 'Pre-Approved Data Sent!',
-        duration: 3000,
-        position: 'bottom'
-      });
-  
       loader.present();
-  
-      setTimeout(() => {
-        loader.dismiss();
-        toast.present();
-        // back to home page
-        this.navCtrl.setRoot('page-home');
-      }, 3000)
+      let date = new Date()
+      this.ChoosePlanData.datePost = date.toDateString();
+      this.ChoosePlanData.dateEdit = date.toDateString();
+      console.log(this.ChoosePlanData);
+      this.storage.get('user').then(data=>{
+        console.log(data.id);
+        this.ChoosePlanData.auteur = "/api/users/" + data.id;
+        this.topic.addChoosePlan(this.ChoosePlanData).then(res=>{
+          this.navCtrl.setRoot('page-home');
+          loader.dismiss();
+          this.presentToast("Question created succesfully");
+        });
+      })
     }else{
       this.presentToast("Veuiller remplir tout les champs.");
     }
   }
+  // process send button
 
 }

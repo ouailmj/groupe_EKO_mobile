@@ -8,6 +8,14 @@
 	}
 }
 
+.item-label-stacked .text-input-md, .item-label-floating .text-input-md{
+	height: 50px;
+}
+.item-label-stacked .text-input-ios, .item-label-floating .text-input-ios{
+	height: 50px;
+
+}
+
 .preapproved {
 	.item {
 		padding-left: 0;

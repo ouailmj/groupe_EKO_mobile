@@ -22,7 +22,7 @@
 
 				<ion-card>
 					<ion-card-content>
-						<form [formGroup]="onApprovedForm" class="list-form">
+						<form [formGroup]="onApprovedForm" (ngSubmit)="onSubmit()" class="list-form">
 							<ion-list margin-bottom>
 								<ion-item>
 									<ion-label>Use my profile data</ion-label>
@@ -31,21 +31,21 @@
 								<p ion-text color="danger" class="text-1x has-error" *ngIf="onApprovedForm.get('profiledata').touched && onApprovedForm.get('profiledata').hasError('required')">This field is required</p>
 
 								<ion-item>
-									<ion-label color="primary" stacked >Topic Object:</ion-label>
-									<ion-input type="text" placeholder="object here..." formControlName="objectid"></ion-input>
+									<ion-label color="primary" stacked ><b>Topic Object:</b></ion-label>
+									<ion-textarea type="text" placeholder="object here..." formControlName="objectid" [(ngModel)]="ChoosePlanData.titre"></ion-textarea>
 								</ion-item>
 								<p ion-text color="danger" class="text-1x has-error" *ngIf="onApprovedForm.get('objectid').touched && onApprovedForm.get('objectid').hasError('required')">This field is required</p>
 
 								<ion-item>
-									<ion-label color="primary" stacked>Topic :</ion-label>
-									<ion-input type="textarea" formControlName="topic"></ion-input>
+									<ion-label color="primary" stacked><b>Topic :</b></ion-label>
+									<ion-textarea type="textarea" class="area-topic" placeholder="your description..." formControlName="topic" [(ngModel)]="ChoosePlanData.question" ></ion-textarea>
 								</ion-item>
 								<p ion-text color="danger" class="text-1x has-error" *ngIf="onApprovedForm.get('topic').touched && onApprovedForm.get('topic').hasError('required')">This field is required</p>
 
 								<ion-list>
 									<ion-item>
-										  <ion-label>Category :</ion-label>
-										  <ion-select formControlName="category">
+										  <ion-label color="primary">Category :</ion-label>
+										  <ion-select formControlName="category" [(ngModel)]="ChoosePlanData.categorie">
 											<ion-option value="test1">test1</ion-option>
 											<ion-option value="test2">test2</ion-option>
 											<ion-option value="test3">test3</ion-option>
@@ -60,7 +60,7 @@
 								<input type="file" id="file-input" style="opacity: 0" #fileInp>
 								<button block ion-button class="upload">Upload</button>
 							  </ion-item>
-							<button ion-button block color="primary" (click)="sendData()">Post the topic</button>
+							<button ion-button block color="primary" type="submit">Post the topic</button>
 						</form>
 					</ion-card-content>
 				</ion-card>

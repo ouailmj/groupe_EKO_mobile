@@ -1,6 +1,14 @@
 
 export interface ChoosePlanData{
-    planKey: string;
+  titre: string,
+  categorie: string,
+  status: string,
+  question: string,
+  datePost: string,
+  dateEdit: string,
+  auteur: string,
+  commentaires: Array<any>,
+  ConversationUsers: Array<any>
 }
 export interface EventInformationData{
     description: string,
