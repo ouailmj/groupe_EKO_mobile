@@ -17,17 +17,17 @@
 							<ion-avatar item-left>
 								<img src="assets/img/avatar.png"/>
 							</ion-avatar>
-							<h2 ion-text color="dark" class="fw500"><b>{{ dataauteur.username }}</b></h2>
-							<p ion-text class="datepost" color="primary">Le {{ property.datePost.substring(0,10) }} à {{ property.datePost.substring(11,13) }}h:{{ property.datePost.substring(14,16) }}</p>
+							<h2 ion-text color="dark" class="fw500"><b>{{ dataauteur.username }}</b> ({{dataauteur.type}})</h2>
+							<p ion-text class="datepost" color="primary">{{ property.datePost | date:'medium' }}</p>
 							<p ion-text color="primary" *ngIf="property.dateEdit != null" >Edited</p>
 						</button>
-						<button ion-item (click)="delete()" color="light" class="button-left">
+						<button ion-item (click)="edit()" color="light" class="button-left">
 							<ion-icon item-left color="primary" name="ios-arrow-dropdown"></ion-icon>
 						</button>
 					</div>
 					<ion-card-content class="card-content-property light-mb">
 						<br>
-							<h2 ion-text color="primary" class="card-title">{{property.titre}}</h2>
+							<h2 ion-text color="primary" class="card-title">{{property.titre}} <ion-icon class="icone" *ngIf="property.status == 'answered'" color="primary" name="checkmark-circle-outline"></ion-icon><ion-icon icon-end class="icone" *ngIf="property.status == 'unanswered'" color="danger" name="close-circle"></ion-icon> </h2>
 							<hr>
 							<p ion-text color="dark">{{property.question}}</p>
 						</ion-card-content>
@@ -52,46 +52,35 @@
 					</ion-item>
 				</ion-card>
 
-				<ion-card *ngIf="property.id">
+				<ion-card *ngFor="let data of allData">
+					<div class="ligne">
 						<button ion-item (click)="openBrokerDetail(property.broker)" color="light">
-								<ion-avatar item-left>
-									<img src="assets/img/avatar.png"/>
-								</ion-avatar>
-								<h2 ion-text color="dark" class="fw500">username</h2>
-								<p ion-text color="primary">Il y'a un mois</p>
+							<ion-avatar item-left>
+								<img src="assets/img/avatar.png"/>
+							</ion-avatar>
+							<h2 ion-text color="dark" class="fw500">{{data.auteur.username}}</h2>
+							<p ion-text color="primary">{{ data.commentaire.datePost | date:'medium' }}</p>
 						</button>
+						<button ion-item (click)="delete()" color="light" class="button-left">
+								<ion-icon item-left color="primary" name="ios-arrow-dropdown"></ion-icon>
+						</button>
+					</div>					
 						<br>
 						<ion-card-content class="light-mb">
-								<p ion-text color="dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aliquid perspiciatis repellat quae excepturi hic. Voluptate, quo qui vero nulla debitis aperiam nobis id omnis excepturi est itaque placeat amet?</p>
+								<p ion-text color="dark">{{ data.commentaire.message }}</p>
 							</ion-card-content>
-					</ion-card>
-					<ion-card *ngIf="property.id">
-							<button ion-item (click)="openBrokerDetail(property.broker)" color="light">
-									<ion-avatar item-left>
-										<img src="assets/img/avatar.png"/>
-									</ion-avatar>
-									<h2 ion-text color="dark" class="fw500">username</h2>
-									<p ion-text color="primary">Il y'a un mois</p>
-							</button>
-							<ion-card-content class="light-mb">
-						<br>
-
-									<p ion-text color="dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aliquid perspiciatis repellat quae excepturi hic. Voluptate, quo qui vero nulla debitis aperiam nobis id omnis excepturi est itaque placeat amet?</p>
-								</ion-card-content>
-						</ion-card>
-						<ion-card>
-							<ion-grid>
-									<ion-item class="ion-item-comment">
-											<ion-label color="dark" stacked><b>Comment:</b></ion-label>
-											<ion-input type="text" placeholder="" value=""></ion-input>
-										</ion-item>
-								<ion-item>
-										<button ion-button block round  color="primary" margin-top>add Comment</button>
-								</ion-item>
-							</ion-grid>
-						</ion-card>
-									
-
+				</ion-card>
+				<ion-card>
+						<ion-grid>
+							<ion-item class="ion-item-comment">
+										<ion-label color="dark" stacked><b>Add a Comment:</b></ion-label>
+										<ion-textarea></ion-textarea>
+							</ion-item>
+							<ion-item>
+									<button ion-button block round  color="primary" margin-top>add Comment</button>
+							</ion-item>
+						</ion-grid>
+				</ion-card>
 			</ion-col>
 		</ion-row>
 	</ion-grid>

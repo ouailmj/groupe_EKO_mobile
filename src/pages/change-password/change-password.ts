@@ -71,7 +71,7 @@ export class ChangePasswordPage {
           console.log(res)
           this.loading.dismiss();
           this.presentToast("updated succesfully");
-          this.navCtrl.setRoot('page-home');
+          this.navCtrl.setRoot('page-initial');
         }).catch(error=>{
           console.log(error);
           this.presentToast("Invalid data");    

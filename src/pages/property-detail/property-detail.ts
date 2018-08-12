@@ -21,7 +21,9 @@ export class PropertyDetailPage {
         username: "",
         datePost: "",
         dateEdit: "",
+        type:""
     };
+    allData:Array<any>;
     constructor(
         public loadingCtrl:LoadingController,
         public storage:Storage,
@@ -32,16 +34,30 @@ export class PropertyDetailPage {
         public propertyService: PropertyService, 
         public toastCtrl: ToastController
     ) {
+        this.allData = [];
+        console.log(this.allData);
         this.showLoader();
-        console.log(this.property)
         this.param = this.navParams.get('id');
 		this.property = this.propertyService.getItem(this.param) ? this.propertyService.getItem(this.param) : this.propertyService.getProperties()[0];
-        console.log(this.property.auteur);
         this.storage.set('auteur',this.property.auteur);
         this.authService.getUserProfiles().then(res=>{
             this.storage.get('auteurdata').then(data => {
                 this.dataauteur.username = data.username;
-                console.log(this.dataauteur.username)
+                    if(data.roles[0]=="ROLE_SUPER_ADMIN"){
+                        this.dataauteur.type = "Administrateur";
+                    }
+                    else if(data.roles[0]=="ROLE_COLLABORATEUR"){
+                        this.dataauteur.type = "Collaborateur";
+                    }
+                    else{
+                        this.dataauteur.type = "Utilisateur";
+                    }
+                    this.authService.getConversationComment(this.property.commentaires).then(res=>{                      
+                        this.storage.get('dataComment').then(allData=>{
+                            this.allData=allData;
+                        })                    
+                        storage.remove('dataComment');
+                    })
                 this.loading.dismiss();
             })
         })
@@ -104,6 +120,31 @@ export class PropertyDetailPage {
         let actionSheet: ActionSheet = this.actionSheetCtrl.create({
             title: 'Option',
             buttons: [
+                {
+                    text: 'edit',
+                    handler: () => console.log('edited')
+                },
+                {
+                    text: 'delete',
+                    handler: () => console.log('deleted')
+                }
+            ]
+        });
+
+        actionSheet.present();
+    }
+    edit() {
+        let actionSheet: ActionSheet = this.actionSheetCtrl.create({
+            title: 'Option',
+            buttons: [
+                {
+                    text: 'edit',
+                    handler: () => console.log('edited')
+                },
+                {
+                    text: 'Set on answered',
+                    handler: () => console.log('answered')
+                },
                 {
                     text: 'delete',
                     handler: () => console.log('deleted')

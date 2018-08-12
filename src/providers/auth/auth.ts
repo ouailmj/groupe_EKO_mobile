@@ -5,6 +5,7 @@ import { UserData, UserRegister } from "../types/userData";
 import {  HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 import {environment} from "../../environments/environment";
+import { resolveDefinition } from '@angular/core/src/view/util';
 
 @Injectable()
 export class AuthProvider {
@@ -158,6 +159,34 @@ export class AuthProvider {
 
   }
 
+  getConversationComment(commentaire:Array<any>) :Promise<any>{
+    return new Promise((resolve,reject)=>{
+      let headers = new HttpHeaders();
+      let singleArray=[];
+      this.storage.get('token').then(tok=>{
+        headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+        headers = headers.set('Authorization', 'Bearer ' + tok);
+          commentaire.forEach(element => {
+            this.apiProvider.get(element,{headers: headers}).then(repdata=>{
+              this.apiProvider.get(repdata.auteur,{headers:headers}).then(autComment=>{
+                singleArray.push({
+                  commentaire: repdata,
+                  auteur: autComment 
+                 })
+                 this.storage.set('dataComment',singleArray);
+              })
+            }).catch(error=>{
+              reject(error);
+            })
+          })
+          resolve('ok');
+      }).catch(err=>{
+        reject(err);
+      })
+    })
+  }
+
+
   getUserProfiles(): Promise<any>{
 
 
@@ -172,7 +201,6 @@ export class AuthProvider {
         headers = headers.set('Authorization', 'Bearer ' + tok);
         this.storage.get('auteur').then(auteurdata => {
           this.apiProvider.get(auteurdata,{headers: headers}).then(rep=>{
-              console.log(rep.id);
               this.apiProvider.get('/api/users/'+rep.id ,{headers: headers}).then(repdata=>{
                  this.storage.set('auteurdata', repdata);
               }).catch(error=>{
