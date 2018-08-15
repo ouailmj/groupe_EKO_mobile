@@ -1,7 +1,7 @@
-import { TopicProvider } from './../../providers/topic/topic';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, PopoverController } from 'ionic-angular';
+import { IonicPage, NavController,LoadingController ,NavParams, MenuController, PopoverController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { TopicProvider } from './../../providers/topic/topic';
 import { PropertyService } from '../../providers/property-service-mock';
 
 @IonicPage({
@@ -17,47 +17,29 @@ import { PropertyService } from '../../providers/property-service-mock';
 
 export class HomePage {
 
+	loading: any;
   properties: Array<any>;
   searchKey: string = "";
-	topics :any [];
+	topics :{};
+
 	constructor(public storage:Storage,
 		public navCtrl: NavController, 
 		public menuCtrl: MenuController, 
 		public popoverCtrl: PopoverController, 
 		public service: PropertyService,
 		public navParams: NavParams,
-		public topicProvider: TopicProvider
-	) {
+		public topicProvider: TopicProvider,
+		public loadingCtrl:LoadingController,
+	)
+	{
+		
 		this.menuCtrl.swipeEnable(true, 'authenticated');
 		this.menuCtrl.enable(true);
-		
-		this.storage.get("user").then(data=>{
-			console.log(data);			
-			console.log(data.person);
-		}).catch(err=>{
-			console.log("erreeeeee");
-			
-		})
-		this.storage.get("userdata").then(data=>{
-			console.log(data);
-		}).catch(err=>{
-			console.log("erreeeeee");
-		})
 
-		this.topicProvider.getEvents().then(data=>{
-			this.topics = data;
-			this.storage.set('dataconv', data);
-			console.log(data);
-		});
 		this.findAll();
   }
 
-	senddata(data :Array<any>){
-		return data;
-	}
-
   openPropertyListPage(proptype) {
-  	// console.log(proptype);
 		this.navCtrl.push('page-property-list');
   }
 
@@ -69,13 +51,14 @@ export class HomePage {
 
   openSettingsPage() {
 		this.navCtrl.push('page-settings');
-  }
-
+	}
+	
 	onInput(event) {
+
 	    this.service.findByName(this.searchKey)
 	        .then(data => {
-	            this.properties = data;
-	        })
+						this.topics = data;
+					})
 	        .catch(error => alert(JSON.stringify(error)));
 	}
 
@@ -84,10 +67,25 @@ export class HomePage {
 	}
 
 	findAll() {
+		this.loading = this.loadingCtrl.create({
+			content: 'Loading...'
+		});
+
+		this.loading.present();
+			this.topicProvider.getConversations().then(data=>{
+				this.topics = data;
+				this.storage.set('dataconv', data);
+				console.log(data);
+			});
+
 	    this.service.findAll()
-	        .then(data => this.properties = data)
+	        .then(data =>{
+						this.properties = data
+						this.topics = data;
+					})
 	        .catch(error => alert(error));
-	}
+			this.loading.dismiss();
+		}
 
   presentNotifications(myEvent) {
     console.log(myEvent);
@@ -98,7 +96,6 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
-      // this.navCtrl.canSwipeBack();
   }
 
 }

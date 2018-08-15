@@ -23,12 +23,18 @@ export class PropertyService {
 
   findAll(): Promise<any> {
 
-    return new Promise((resolve, reject) => {
+    return new Promise ((resolve, reject) => {
+
       this.storage.get('dataconv').then(data=>{
+      this.properties = data;
+
         resolve(data)
+
       }).catch(error=>{
+
         reject(error.error.violations)
       })
+      
     })
 
   }
@@ -51,9 +57,16 @@ export class PropertyService {
 	}
 
   findByName(searchKey: string) {
-    let key: string = searchKey.toUpperCase();
-		return Promise.resolve(this.properties.filter((property: any) =>
-        (property.titre + ' ' +property.question).toUpperCase().indexOf(key) > -1));
+    return new Promise((resolve, reject) => {
+
+      let key: string = searchKey.toUpperCase();
+      this.storage.get('dataconv').then(data=>{
+        resolve (data.filter((property: any) =>
+          (property.titre + ' ' +property.question).toUpperCase().indexOf(key) > -1));
+      })
+
+    })
+
   }
 
   getFavorites() {

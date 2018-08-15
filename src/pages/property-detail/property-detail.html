@@ -61,7 +61,7 @@
 							<h2 ion-text color="dark" class="fw500">{{data.auteur.username}}</h2>
 							<p ion-text color="primary">{{ data.commentaire.datePost | date:'medium' }}</p>
 						</button>
-						<button ion-item (click)="delete()" color="light" class="button-left">
+						<button ion-item (click)="delete(data.commentaire.id)" color="light" class="button-left">
 								<ion-icon item-left color="primary" name="ios-arrow-dropdown"></ion-icon>
 						</button>
 					</div>					
@@ -71,15 +71,17 @@
 							</ion-card-content>
 				</ion-card>
 				<ion-card>
+					<form [formGroup]="onCommentForm" (ngSubmit)="onSubmit()" class="list-form">
 						<ion-grid>
 							<ion-item class="ion-item-comment">
 										<ion-label color="dark" stacked><b>Add a Comment:</b></ion-label>
-										<ion-textarea></ion-textarea>
+										<ion-textarea placeholder="your description..." formControlName="message" [(ngModel)]="commentaires.message"></ion-textarea>
 							</ion-item>
 							<ion-item>
 									<button ion-button block round  color="primary" margin-top>add Comment</button>
 							</ion-item>
 						</ion-grid>
+					</form>
 				</ion-card>
 			</ion-col>
 		</ion-row>

@@ -29,3 +29,9 @@ export interface PaymentData{
     cvv: number,
     price: number,
 }
+export interface commentData{
+  auteur: string,
+  message: string,
+  conversation: string,
+  datePost: string
+}

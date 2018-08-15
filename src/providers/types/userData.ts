@@ -8,12 +8,3 @@ export interface UserData {
   timezoneId?: string;
   avatar?:string
 }
-
-export interface UserRegister{
-  username: string;
-  plainPassword: string;
-  email?: string;
-
-}
-
-

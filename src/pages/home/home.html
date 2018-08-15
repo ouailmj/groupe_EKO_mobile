@@ -43,7 +43,7 @@
 	<ion-grid fixed>
 		<ion-row>
 
-			<button ion-item col col-12 col-md-6 *ngFor="let property of properties" (click)="openPropertyDetail(property)">
+			<button ion-item col col-12 col-md-6 *ngFor="let property of topics" (click)="openPropertyDetail(property)">
 				<h2 ion-text color="primary">{{property.titre}} <span class="categorie"> ( {{property.categorie}} ) </span></h2>
 				<h3 ion-text color="dark">{{property.question}}</h3>
 				<p ion-text color="dark">

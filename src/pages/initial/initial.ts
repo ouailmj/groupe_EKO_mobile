@@ -13,9 +13,9 @@ import { IonicPage, Slides, NavController, MenuController } from 'ionic-angular'
 })
 
 export class InitialPage {
-	@ViewChild(Slides) slides: Slides;
+  @ViewChild(Slides) slides: Slides;
+
   showSkip = true;
-  dir: string = 'ltr';
 
   slideList: Array<any> = [
     {
@@ -50,10 +50,6 @@ export class InitialPage {
 
   onLastSlide() {
   	this.slides.slideTo(3, 300)
-  }
-
-  openHomePage() {
-  	this.navCtrl.setRoot('page-home');
   }
 
   openAuthPage() {

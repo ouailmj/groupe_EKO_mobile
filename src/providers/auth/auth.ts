@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiProvider } from "../api/api";
 import { AuthRoutes } from "./auth.routes";
-import { UserData, UserRegister } from "../types/userData";
+import { UserData } from "../types/userData";
 import {  HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 import {environment} from "../../environments/environment";
@@ -17,7 +17,7 @@ export class AuthProvider {
   login(userData: UserData): Promise<any> {
 
 
-    const loginPath = 'http://localhost:8000/api/login_check';
+    const loginPath = 'http://localhost:8000' + AuthRoutes.apiLoginCheckUrl;
 
     const formData = new FormData();
     formData.append("_username",userData.username);
@@ -42,21 +42,23 @@ export class AuthProvider {
               this.apiProvider.get(AuthRoutes.apiCurrentUser, {headers: headers}).then(user => {
 
                   this.storage.set('user', user);
+
               }).catch(err=>{
+
                   console.log(err)
                   reject(err)
+              
               })
 
           resolve(result);
 
          }).catch(err=>{
             reject(err)
-        });
+         });
+
         }).catch(err=>{
           reject(err)
         });
-
-
 
     })
 
@@ -69,20 +71,6 @@ export class AuthProvider {
     return response;
   }
 
-
-
-  register(userData: UserRegister): Promise<any> {
-
-    return new Promise((resolve, reject) => {
-      this.apiProvider.post(AuthRoutes.apiSignUp, userData).then(data=>{
-        resolve(data)
-      }).catch(error=>{
-
-        reject(error.error.violations)
-      })
-    })
-
-  }
   
   changePpassword(credentials) : Promise<any>{
     return new Promise((resolve, reject) => {
@@ -241,17 +229,17 @@ export class AuthProvider {
       headers = headers.set('Content-Type', 'application/json; charset=utf-8');
       headers = headers.set('Authorization', 'Bearer ' + tok);
 
-      this.apiProvider.get('/api/current-user',{headers: headers}).then(rep=>{
+      this.apiProvider.get(AuthRoutes.apiCurrentUser , {headers: headers}).then(rep=>{
           
           this.apiProvider.get(rep.person ,{headers: headers}).then(repdata=>{
-             this.storage.set('userdata', repdata);
+            this.storage.set('userdata', repdata);
           }).catch(error=>{
 
             reject(error);
 
           })
 
-           this.storage.set('user', rep);
+          this.storage.set('user', rep);
 
             resolve("ok");
 
@@ -260,6 +248,7 @@ export class AuthProvider {
             reject(error);
 
           })
+          
       }).catch(error=>{
 
         reject('erro');

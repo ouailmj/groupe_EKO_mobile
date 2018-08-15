@@ -17,14 +17,18 @@ import { Storage } from '@ionic/storage';
 })
 
 export class AuthPage{
+
   auth: string = "login";
+  
   loading: any;
+
   loginData:UserData = {
     username:'admin',
     password:"f%/R4Uk#](wUvM'V",
   };
-    data: any;
-    authForm: FormGroup;
+  
+  data: any;
+  authForm: FormGroup;
 
   constructor(public formBuilder: FormBuilder,
      private authService:AuthProvider,
@@ -42,18 +46,25 @@ export class AuthPage{
     
     this.navCtrl = navCtrl;
 
+    this.removeUser();
+    this.validationUser();
+  }
+
+  validationUser(){
+    this.authForm = this.formBuilder.group({      
+
+      username: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(30)])],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+    
+    });
+  }
+
+  removeUser(){
     this.storage.get("user").then(data=>{
       this.storage.remove('token');
       this.storage.remove('user');
     }).catch(error => {
       console.log(error.status);
-    });
-    
-    this.authForm = formBuilder.group({      
-    
-      username: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(30)])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
-    
     });
   }
 
@@ -65,7 +76,6 @@ export class AuthPage{
           console.log(result.token);
           this.getUserInfo();
             
-
       }
       ).catch(err=>{
           console.log(err);
@@ -89,8 +99,6 @@ export class AuthPage{
 
   }
 
-
-
   showLoader(){
     this.loading = this.loadingCtrl.create({
         content: 'Authenticating...'
@@ -112,10 +120,6 @@ export class AuthPage{
     });
 
     toast.present();
-  }
-
-  login() {
-    this.navCtrl.setRoot('page-home');
   }
 
   forgotPass() {
@@ -155,4 +159,5 @@ export class AuthPage{
     });
     forgot.present();
   }
+
 }

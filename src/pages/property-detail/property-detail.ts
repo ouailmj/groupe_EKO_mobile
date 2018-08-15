@@ -3,6 +3,10 @@ import {Component, ViewChild} from '@angular/core';
 import {LoadingController, IonicPage, ActionSheetController, ActionSheet, NavController, NavParams, ToastController} from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import {PropertyService} from '../../providers/property-service-mock';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { commentData } from './../../providers/types/eventData';
+import { TopicProvider } from './../../providers/topic/topic';
+import { TopicRoutes } from './../../providers/mytopic/mytopic.routes';
 
 @IonicPage({
 	name: 'page-property-detail',
@@ -14,6 +18,14 @@ import {PropertyService} from '../../providers/property-service-mock';
     templateUrl: 'property-detail.html'
 })  
 export class PropertyDetailPage {
+    public onCommentForm: FormGroup;
+    role:any ;
+    commentaires:commentData = {
+        auteur: "",
+        message: "",
+        conversation: "",
+        datePost: ""
+      };
     loading: any;
 	property: any;
 	param: number;
@@ -32,8 +44,14 @@ export class PropertyDetailPage {
         public navCtrl: NavController, 
         public navParams: NavParams, 
         public propertyService: PropertyService, 
-        public toastCtrl: ToastController
+        public toastCtrl: ToastController,
+        public formBuilder: FormBuilder,
+        public topic:TopicProvider,
+
     ) {
+        this.onCommentForm = formBuilder.group({      
+            message: ['', Validators.compose([Validators.required])],
+          });
         this.allData = [];
         console.log(this.allData);
         this.showLoader();
@@ -116,7 +134,7 @@ export class PropertyDetailPage {
         actionSheet.present();
     }
 
-    delete() {
+    delete(id:string) {
         let actionSheet: ActionSheet = this.actionSheetCtrl.create({
             title: 'Option',
             buttons: [
@@ -126,7 +144,7 @@ export class PropertyDetailPage {
                 },
                 {
                     text: 'delete',
-                    handler: () => console.log('deleted')
+                    handler: () => this.deleteData(id , TopicRoutes.apiComment)
                 }
             ]
         });
@@ -147,7 +165,7 @@ export class PropertyDetailPage {
                 },
                 {
                     text: 'delete',
-                    handler: () => console.log('deleted')
+                    handler: () => this.deleteData(this.property.id,TopicRoutes.apiConversation)
                 }
             ]
         });
@@ -155,4 +173,58 @@ export class PropertyDetailPage {
         actionSheet.present();
     }
 
+    deleteData(id:string,path:string){
+        let loader = this.loadingCtrl.create({
+            content: "Please wait..."
+        });
+        loader.present();
+        this.storage.get('user').then(res=>{
+            if(res.roles[0] == "ROLE_SUPER_ADMIN"){
+                console.log(this.property.id);
+                this.topic.DeleteConversation(id, path);
+                this.navCtrl.setRoot('page-home');
+                loader.dismiss();
+                this.presentToast("deleted successfully");
+            }
+        })
+        
+    }
+
+
+
+    presentToast(msg) {
+        let toast = this.toastCtrl.create({
+          message: msg,
+          duration: 3000,
+          position: 'bottom',
+          dismissOnPageChange: true
+        });
+    
+        toast.onDidDismiss(() => {
+          console.log('Dismissed toast');
+        });
+    
+        toast.present();
+      }
+
+    onSubmit(){
+        if(this.onCommentForm.valid){
+            let loader = this.loadingCtrl.create({
+                content: "Please wait..."
+            });
+            loader.present();
+            let date = new Date();
+            this.commentaires.datePost = date.toDateString();
+            this.commentaires.conversation ="/api/conversations/" + this.property.id;
+            this.storage.get('user').then(data=>{
+                this.commentaires.auteur = "/api/users/" + data.id;
+                this.topic.addComment(this.commentaires).then(res=>{
+                this.navCtrl.setRoot('page-home');
+                loader.dismiss();
+                this.presentToast("Question created succesfully");
+            });
+                
+            });
+        }
+    }
 }

@@ -4,8 +4,8 @@ import { Storage } from '@ionic/storage';
 import {ApiProvider} from "../api/api";
 import {HttpHeaders} from "@angular/common/http";
 import {  LoadingController, ToastController } from 'ionic-angular';
-import {ChoosePlanData, EventInformationData, PaymentData} from "../types/eventData";
-
+import {ChoosePlanData, commentData} from "../types/eventData";
+import { TopicRoutes } from './../mytopic/mytopic.routes';
 /*
   Generated class for the TopicProvider provider.
 
@@ -24,7 +24,7 @@ export class TopicProvider {
     console.log('Hello TopicProvider Provider');
   }
 
-  getEvents():Promise<any>{
+  getConversations():Promise<any>{
 
 
     return new Promise((resolve, reject) => {
@@ -37,10 +37,7 @@ export class TopicProvider {
             headers = headers.set('Content-Type', 'application/json; charset=utf-8');
             headers = headers.set('Authorization', 'Bearer ' + tok);
 
-            this.apiProvider.get('/api/conversations',{headers: headers}).then(rep=>{
-
-
-                //  this.storage.set('user', rep);
+            this.apiProvider.get(TopicRoutes.apiConversations,{headers: headers}).then(rep=>{
 
                 resolve(rep["hydra:member"]);
 
@@ -85,6 +82,41 @@ export class TopicProvider {
 
         })
 
+    }
+
+        addComment(comData:commentData): Promise<any>{
+        return new Promise((resolve, reject) => {
+
+
+            this.storage.get('token').then(tok=>{
+
+                let headers = new HttpHeaders();
+                headers = headers.set('Content-Type', 'application/json');
+                this.apiProvider.post("/api/commentaires", comData,{headers: headers}).then(rep=>{
+                    console.log(rep)
+                    resolve("ok");
+                }).catch(error=>{
+                    reject(error);
+                })
+            }).catch(error => {
+                console.log(error.status);
+            });
+
+
+        })
+    }
+
+    DeleteConversation(id:string , path:string) {
+        this.storage.get('token').then(tok=>{
+                let headers = new HttpHeaders();
+                headers = headers.set('Content-Type', 'application/json');
+                this.apiProvider.delete(path + id).subscribe(
+                    rep => console.log("deleted"),
+                    error => console.log("error")                
+                );
+            }).catch(error => {
+                console.log(error.status);
+            });
     }
 
 }

@@ -1,11 +1,31 @@
 page-initial {
   @import url('https://fonts.googleapis.com/css?family=Monoton');
+  @import url('https://fonts.google.com/specimen/Corben');
+  
   .skip{
-    text-transform: uppercase;
+      text-transform: uppercase;
       color: #ffffff;
       font-family: 'Monoton', cursive;
       font-size: 1.2em;
       margin: 25% 0 0 0;
+  }
+
+  .button-ios{
+    webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); 
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); 
+  }
+
+  .btn-nex-sign{
+    font-family: 'Corben';
+    height: 36px;
+    font-size: 1.5rem;
+  }
+
+  .button-round-md {
+    border-radius: 8px;
+  }
+  .button-round-ios{
+    border-radius: 8px;
   }
 
   ion-toolbar{
@@ -37,7 +57,6 @@ page-initial {
     margin-bottom: 30px
   }
 
-
   b {
     font-weight: 500;
   }
@@ -54,6 +73,7 @@ page-initial {
       color: #000;
     }
   }
+
   ion-label{
     width:30%
   }
