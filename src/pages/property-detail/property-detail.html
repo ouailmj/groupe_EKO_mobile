@@ -13,7 +13,7 @@
 
 				<ion-card *ngIf="property.id">
 					<div class="ligne">
-						<button ion-item (click)="openBrokerDetail(2)" color="light">
+						<button ion-item (click)="openUserDetail(this.property.auteur.substring(11,12))" color="light">
 							<ion-avatar item-left>
 								<img src="assets/img/avatar.png"/>
 							</ion-avatar>
@@ -54,7 +54,7 @@
 
 				<ion-card *ngFor="let data of allData">
 					<div class="ligne">
-						<button ion-item (click)="openBrokerDetail(property.broker)" color="light">
+						<button ion-item (click)="openUserDetail(data.auteur.id)" color="light">
 							<ion-avatar item-left>
 								<img src="assets/img/avatar.png"/>
 							</ion-avatar>

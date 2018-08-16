@@ -4,7 +4,7 @@ import { Storage } from '@ionic/storage';
 import {ApiProvider} from "../api/api";
 import {HttpHeaders} from "@angular/common/http";
 import {  LoadingController, ToastController } from 'ionic-angular';
-import {ChoosePlanData, commentData} from "../types/eventData";
+import {ChooseTopicData, commentData} from "../types/eventData";
 import { TopicRoutes } from './../mytopic/mytopic.routes';
 /*
   Generated class for the TopicProvider provider.
@@ -56,7 +56,7 @@ export class TopicProvider {
 
     }
 
-    addChoosePlan(choosePlanData: ChoosePlanData): Promise<any>{
+    addChooseTopic(chooseTopicData: ChooseTopicData): Promise<any>{
 
         return new Promise((resolve, reject) => {
 
@@ -65,7 +65,7 @@ export class TopicProvider {
 
                 let headers = new HttpHeaders();
                 headers = headers.set('Content-Type', 'application/json');
-                this.apiProvider.post("/api/conversations", choosePlanData,{headers: headers}).then(rep=>{
+                this.apiProvider.post(TopicRoutes.apiConversations, chooseTopicData,{headers: headers}).then(rep=>{
                     console.log(rep)
                     resolve("ok");
 
@@ -78,7 +78,6 @@ export class TopicProvider {
             }).catch(error => {
                 console.log(error.status);
             });
-
 
         })
 
@@ -87,13 +86,11 @@ export class TopicProvider {
         addComment(comData:commentData): Promise<any>{
         return new Promise((resolve, reject) => {
 
-
             this.storage.get('token').then(tok=>{
 
                 let headers = new HttpHeaders();
                 headers = headers.set('Content-Type', 'application/json');
-                this.apiProvider.post("/api/commentaires", comData,{headers: headers}).then(rep=>{
-                    console.log(rep)
+                this.apiProvider.post(TopicRoutes.apiCommentData, comData,{headers: headers}).then(rep=>{
                     resolve("ok");
                 }).catch(error=>{
                     reject(error);
@@ -101,7 +98,6 @@ export class TopicProvider {
             }).catch(error => {
                 console.log(error.status);
             });
-
 
         })
     }

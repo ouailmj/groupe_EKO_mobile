@@ -1,3 +1,4 @@
+import { AuthRoutes } from './../../providers/auth/auth.routes';
 import { Storage } from '@ionic/storage';
 import {Component, ViewChild} from '@angular/core';
 import {LoadingController, IonicPage, ActionSheetController, ActionSheet, NavController, NavParams, ToastController} from 'ionic-angular';
@@ -18,24 +19,32 @@ import { TopicRoutes } from './../../providers/mytopic/mytopic.routes';
     templateUrl: 'property-detail.html'
 })  
 export class PropertyDetailPage {
+
     public onCommentForm: FormGroup;
-    role:any ;
+
+    superAdmin:boolean;
+
     commentaires:commentData = {
         auteur: "",
         message: "",
         conversation: "",
         datePost: ""
       };
+
     loading: any;
-	property: any;
-	param: number;
+    property: any;
+    
+    param: number;
+    
     dataauteur = {
         username: "",
         datePost: "",
         dateEdit: "",
         type:""
     };
+
     allData:Array<any>;
+
     constructor(
         public loadingCtrl:LoadingController,
         public storage:Storage,
@@ -48,50 +57,49 @@ export class PropertyDetailPage {
         public formBuilder: FormBuilder,
         public topic:TopicProvider,
 
-    ) {
+    ) 
+    {
+
         this.onCommentForm = formBuilder.group({      
             message: ['', Validators.compose([Validators.required])],
-          });
+        });
+
         this.allData = [];
-        console.log(this.allData);
+
         this.showLoader();
+
         this.param = this.navParams.get('id');
-		this.property = this.propertyService.getItem(this.param) ? this.propertyService.getItem(this.param) : this.propertyService.getProperties()[0];
-        this.storage.set('auteur',this.property.auteur);
-        this.authService.getUserProfiles().then(res=>{
-            this.storage.get('auteurdata').then(data => {
-                this.dataauteur.username = data.username;
-                    if(data.roles[0]=="ROLE_SUPER_ADMIN"){
+        this.property = this.propertyService.getItem(this.param) ? this.propertyService.getItem(this.param) : this.propertyService.getProperties()[0];
+
+        this.authService.getUserProfiles(this.property.auteur).then(res=>{
+                this.dataauteur.username = res.username;
+                    if(res.roles[0]=="ROLE_SUPER_ADMIN"){
                         this.dataauteur.type = "Administrateur";
                     }
-                    else if(data.roles[0]=="ROLE_COLLABORATEUR"){
+                    else if(res.roles[0]=="ROLE_COLLABORATEUR"){
                         this.dataauteur.type = "Collaborateur";
                     }
                     else{
                         this.dataauteur.type = "Utilisateur";
                     }
-                    this.authService.getConversationComment(this.property.commentaires).then(res=>{                      
-                        this.storage.get('dataComment').then(allData=>{
-                            this.allData=allData;
-                        })                    
-                        storage.remove('dataComment');
-                    })
-                this.loading.dismiss();
-            })
+                })
+        this.authService.getConversationComment(this.property.commentaires).then(res=>{                      
+            this.allData=res;
         })
+        this.loading.dismiss();
     }
 
     showLoader(){
         this.loading = this.loadingCtrl.create({
-            content: 'Authenticating...'
+            content: 'Loading...'
         });
     
         this.loading.present();
-      }
+    }
 
-    openBrokerDetail(broker) {
+    openUserDetail(user) {
 		this.navCtrl.push('page-broker-detail', {
-			'id': 3
+			'id': user
 		});
     }
 
@@ -152,6 +160,19 @@ export class PropertyDetailPage {
         actionSheet.present();
     }
     edit() {
+
+        this.storage.get('user').then(data=>{
+            if(data.superAdmin == true || this.property.auteur == (AuthRoutes.apiUserData + data.id)  ){
+                this.popupAdmin();
+            }
+            else{
+                this.popupUser();
+            }
+        })
+        
+    }
+
+    popupAdmin(){
         let actionSheet: ActionSheet = this.actionSheetCtrl.create({
             title: 'Option',
             buttons: [
@@ -165,32 +186,54 @@ export class PropertyDetailPage {
                 },
                 {
                     text: 'delete',
-                    handler: () => this.deleteData(this.property.id,TopicRoutes.apiConversation)
+                    handler: () => {
+                        this.deleteData(this.property.id,TopicRoutes.apiConversation)
+                    }
                 }
             ]
         });
+        actionSheet.present();
+    }
 
+    popupUser(){
+        let actionSheet: ActionSheet = this.actionSheetCtrl.create({
+            title: 'Option',
+            buttons: [
+                {
+                    text: 'edit',
+                    handler: () => console.log('edited')
+                },
+                {
+                    text: 'Set on answered',
+                    handler: () => console.log('answered')
+                }
+            ]
+        });
         actionSheet.present();
     }
 
     deleteData(id:string,path:string){
-        let loader = this.loadingCtrl.create({
-            content: "Please wait..."
-        });
-        loader.present();
-        this.storage.get('user').then(res=>{
-            if(res.roles[0] == "ROLE_SUPER_ADMIN"){
-                console.log(this.property.id);
-                this.topic.DeleteConversation(id, path);
-                this.navCtrl.setRoot('page-home');
-                loader.dismiss();
-                this.presentToast("deleted successfully");
-            }
-        })
+
+        this.storage.get('user').then(data=>{
         
+            if(data.superAdmin == true){
+                let loader = this.loadingCtrl.create({
+                    content: "Please wait..."
+                });
+                loader.present();
+                this.storage.get('user').then(res=>{
+                    if(res.roles[0] == "ROLE_SUPER_ADMIN"){
+                        console.log(this.property.id);
+                        this.topic.DeleteConversation(id, path);
+                        this.navCtrl.setRoot('page-home');
+                        loader.dismiss();
+                        this.presentToast("deleted successfully");
+                    }
+                })
+            }
+            
+        })
     }
-
-
 
     presentToast(msg) {
         let toast = this.toastCtrl.create({
@@ -205,19 +248,22 @@ export class PropertyDetailPage {
         });
     
         toast.present();
-      }
+    }
 
     onSubmit(){
         if(this.onCommentForm.valid){
             let loader = this.loadingCtrl.create({
                 content: "Please wait..."
             });
+
             loader.present();
+
             let date = new Date();
             this.commentaires.datePost = date.toDateString();
-            this.commentaires.conversation ="/api/conversations/" + this.property.id;
+            
+            this.commentaires.conversation = TopicRoutes.apiConversation + this.property.id;
             this.storage.get('user').then(data=>{
-                this.commentaires.auteur = "/api/users/" + data.id;
+                this.commentaires.auteur = AuthRoutes.apiUserData + data.id;
                 this.topic.addComment(this.commentaires).then(res=>{
                 this.navCtrl.setRoot('page-home');
                 loader.dismiss();

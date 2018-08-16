@@ -106,47 +106,6 @@ export class AuthProvider {
 
   }
 
-  updateUser(userdata:UserData){
-
-
-    const credentials = {
-      "username": userdata.username,
-      "fullName": userdata.fullName,
-      "email": userdata.email,
-      "phoneNumber": userdata.phoneNumber,
-      "timeZone": userdata.timezoneId,
-      "password": userdata.password
-    };
-
-    return new Promise((resolve, reject) => {
-
-
-          this.storage.get('token').then(tok=>{
-
-          let headers = new HttpHeaders();
-          headers = headers.set('Content-Type', 'application/json; charset=utf-8');
-          headers = headers.set('Authorization', 'Bearer ' + tok);
-
-          this.apiProvider.put('/api/me/change-profile',credentials,{headers: headers}).then(rep=>{
-
-              this.storage.set('token', rep.token);
-
-                resolve("ok");
-
-              }).catch(error=>{
-
-                reject(error);
-
-              })
-          }).catch(error => {
-            console.log(error.status);
-          });
-
-
-      })
-
-  }
-
   getConversationComment(commentaire:Array<any>) :Promise<any>{
     return new Promise((resolve,reject)=>{
       let headers = new HttpHeaders();
@@ -161,13 +120,12 @@ export class AuthProvider {
                   commentaire: repdata,
                   auteur: autComment 
                  })
-                 this.storage.set('dataComment',singleArray);
+                 resolve(singleArray);
               })
             }).catch(error=>{
               reject(error);
             })
           })
-          resolve('ok');
       }).catch(err=>{
         reject(err);
       })
@@ -175,40 +133,32 @@ export class AuthProvider {
   }
 
 
-  getUserProfiles(): Promise<any>{
-
+  getUserProfiles(path:string): Promise<any>{
 
     return new Promise((resolve, reject) => {
-  
-  
+    
         this.storage.get('token').then(tok=>{
   
         let headers = new HttpHeaders();
   
         headers = headers.set('Content-Type', 'application/json; charset=utf-8');
         headers = headers.set('Authorization', 'Bearer ' + tok);
-        this.storage.get('auteur').then(auteurdata => {
-          this.apiProvider.get(auteurdata,{headers: headers}).then(rep=>{
-              this.apiProvider.get('/api/users/'+rep.id ,{headers: headers}).then(repdata=>{
-                 this.storage.set('auteurdata', repdata);
-              }).catch(error=>{
-    
-                reject(error);
-    
-              })
-    
-                resolve("ok");
+          this.apiProvider.get(path,{headers: headers}).then(rep=>{
+              this.apiProvider.get(AuthRoutes.apiUserData +rep.id ,{headers: headers}).then(repdata=>{
+                resolve(repdata);
 
               }).catch(error=>{
     
                 reject(error);
     
               })
-          }).catch(error=>{
     
-            reject('erro');
-          })
 
+              }).catch(error=>{
+    
+                reject(error);
+    
+              })
         })
   
   

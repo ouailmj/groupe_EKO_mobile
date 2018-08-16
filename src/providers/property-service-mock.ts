@@ -1,6 +1,4 @@
 import {Injectable} from '@angular/core';
-import properties from './mock-properties';
-import topics from './mock-topic';
 import { Storage } from '@ionic/storage';
 import { ApiProvider } from "./api/api";
 
@@ -8,8 +6,10 @@ import { ApiProvider } from "./api/api";
 export class PropertyService {
   
   properties: Array<any> ;
+  
   favoriteCounter: number = 0;
   favorites: Array<any> = [];
+
   constructor(public storage:Storage,public apiProvider: ApiProvider){
     this.storage.get('dataconv').then(data => {
       console.log(data);
@@ -18,7 +18,10 @@ export class PropertyService {
 		}).catch(err=>{
 			console.log(err);
 		})
+  }
 
+  setProperty(data:Array<any>){
+    this.properties = data
   }
 
   findAll(): Promise<any> {
@@ -44,10 +47,11 @@ export class PropertyService {
 	}
 
   findById(id) {
-    return Promise.resolve(properties[id - 1]);
+    return Promise.resolve(this.properties[id - 1]);
   }
 
 	getItem(id) {
+
 		for (var i = 0; i < this.properties.length; i++) {
 			if (this.properties[i].id === parseInt(id)) {
 				return this.properties[i];

@@ -32,20 +32,20 @@
 
 								<ion-item>
 									<ion-label color="primary" stacked ><b>Topic Object:</b></ion-label>
-									<ion-textarea type="text" placeholder="object here..." formControlName="objectid" [(ngModel)]="ChoosePlanData.titre"></ion-textarea>
+									<ion-textarea type="text" placeholder="object here..." formControlName="objectid" [(ngModel)]="ChooseTopicData.titre"></ion-textarea>
 								</ion-item>
 								<p ion-text color="danger" class="text-1x has-error" *ngIf="onApprovedForm.get('objectid').touched && onApprovedForm.get('objectid').hasError('required')">This field is required</p>
 
 								<ion-item>
 									<ion-label color="primary" stacked><b>Topic :</b></ion-label>
-									<ion-textarea type="textarea" class="area-topic" placeholder="your description..." formControlName="topic" [(ngModel)]="ChoosePlanData.question" ></ion-textarea>
+									<ion-textarea type="textarea" class="area-topic" placeholder="your description..." formControlName="topic" [(ngModel)]="ChooseTopicData.question" ></ion-textarea>
 								</ion-item>
 								<p ion-text color="danger" class="text-1x has-error" *ngIf="onApprovedForm.get('topic').touched && onApprovedForm.get('topic').hasError('required')">This field is required</p>
 
 								<ion-list>
 									<ion-item>
 										  <ion-label color="primary">Category :</ion-label>
-										  <ion-select formControlName="category" [(ngModel)]="ChoosePlanData.categorie">
+										  <ion-select formControlName="category" [(ngModel)]="ChooseTopicData.categorie">
 											<ion-option value="test1">test1</ion-option>
 											<ion-option value="test2">test2</ion-option>
 											<ion-option value="test3">test3</ion-option>

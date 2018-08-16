@@ -1,9 +1,9 @@
 import { Storage } from '@ionic/storage';
-import { ChoosePlanData } from './../../providers/types/eventData';
 import { TopicProvider } from './../../providers/topic/topic';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { IonicPage, NavController, LoadingController, ToastController } from 'ionic-angular';
+import { ChooseTopicData } from './../../providers/types/eventData';
 @IonicPage({
 	name: 'page-pre-approved',
 	segment: 'preapproved'
@@ -16,7 +16,7 @@ import { IonicPage, NavController, LoadingController, ToastController } from 'io
 export class PreApprovedPage implements OnInit {
 
   public onApprovedForm: FormGroup;
-  ChoosePlanData:ChoosePlanData = {
+  ChooseTopicData:ChooseTopicData = {
     titre: "",
     categorie: "",
     status: "unanswered",
@@ -78,13 +78,13 @@ export class PreApprovedPage implements OnInit {
       });
       loader.present();
       let date = new Date()
-      this.ChoosePlanData.datePost = date.toDateString();
-      this.ChoosePlanData.dateEdit = date.toDateString();
-      console.log(this.ChoosePlanData);
+      this.ChooseTopicData.datePost = date.toDateString();
+      this.ChooseTopicData.dateEdit = date.toDateString();
+      console.log(this.ChooseTopicData);
       this.storage.get('user').then(data=>{
         console.log(data.id);
-        this.ChoosePlanData.auteur = "/api/users/" + data.id;
-        this.topic.addChoosePlan(this.ChoosePlanData).then(res=>{
+        this.ChooseTopicData.auteur = "/api/users/" + data.id;
+        this.topic.addChooseTopic(this.ChooseTopicData).then(res=>{
           this.navCtrl.setRoot('page-home');
           loader.dismiss();
           this.presentToast("Question created succesfully");

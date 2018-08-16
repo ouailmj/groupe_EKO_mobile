@@ -6,6 +6,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { PipesModule } from '../pipes/pipes.module';
 import { CalendarModule } from "ion2-calendar"
 
+import { SortPipe } from '../pipes/sort/sort';
+
 import { ionPropertyApp } from './app.component';
 
 import { MessageService } from "../providers/message-service-mock";
@@ -24,7 +26,7 @@ import { MytopicProvider } from '../providers/mytopic/mytopic';
 
 @NgModule({
   declarations: [
-		ionPropertyApp
+    ionPropertyApp,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,7 @@ import { MytopicProvider } from '../providers/mytopic/mytopic';
       driverOrder: ['indexeddb', 'sqlite', 'websql']
     }),
 		PipesModule,
-		CalendarModule
+    CalendarModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [

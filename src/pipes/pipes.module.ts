@@ -5,6 +5,7 @@ import { CapitalizePipe } from './capitalize.pipe';
 import { OrderByPipe } from './orderby.pipe';
 import { ShortenStringPipe } from './shorten.pipe';
 import { TemperaturePipe } from './temperature.pipe';
+import { SortPipe } from './sort/sort';
 
 export const pipes = [
 	TermSearchPipe,
@@ -15,8 +16,10 @@ export const pipes = [
 ];
 
 @NgModule({
-  declarations:[pipes],
-  exports: [pipes]
+  declarations:[pipes,
+    SortPipe],
+  exports: [pipes,
+    SortPipe]
 })
 
 export class PipesModule { }

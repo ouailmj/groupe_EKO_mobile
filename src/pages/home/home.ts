@@ -3,7 +3,7 @@ import { IonicPage, NavController,LoadingController ,NavParams, MenuController, 
 import { Storage } from '@ionic/storage';
 import { TopicProvider } from './../../providers/topic/topic';
 import { PropertyService } from '../../providers/property-service-mock';
-
+import { SortPipe } from './../../pipes/sort/sort';
 @IonicPage({
 	name: 'page-home',
 	segment: 'home',
@@ -22,6 +22,10 @@ export class HomePage {
   searchKey: string = "";
 	topics :{};
 
+	descending: boolean = false;
+	order: number;
+	column: string = 'datePost';
+
 	constructor(public storage:Storage,
 		public navCtrl: NavController, 
 		public menuCtrl: MenuController, 
@@ -38,6 +42,11 @@ export class HomePage {
 
 		this.findAll();
   }
+
+	sort(){
+		this.descending = !this.descending;
+		this.order = this.descending ? 1 : -1;
+	}
 
   openPropertyListPage(proptype) {
 		this.navCtrl.push('page-property-list');
@@ -73,6 +82,7 @@ export class HomePage {
 
 		this.loading.present();
 			this.topicProvider.getConversations().then(data=>{
+				this.service.setProperty(data);
 				this.topics = data;
 				this.storage.set('dataconv', data);
 				console.log(data);
