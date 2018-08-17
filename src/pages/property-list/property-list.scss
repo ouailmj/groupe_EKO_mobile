@@ -30,3 +30,9 @@ ion-footer {
 .card-title-md{
 	font-size:2rem
 }
+
+.boxShadow {
+	-webkit-box-shadow: 7px 3px 28px 3px rgba(118,142,148,0.7);
+	-moz-box-shadow: 7px 3px 28px 3px rgba(118,142,148,0.7);
+	box-shadow: 7px 3px 28px 3px rgba(118,142,148,0.7);
+}

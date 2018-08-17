@@ -37,7 +37,7 @@
   <ion-grid no-padding>
 	  <ion-row  *ngIf="viewMode === 'list'">
 			<ion-col col col-12 col-md-6 *ngFor="let property of properties | termSearch:proptype:'status'" >
-	      <ion-card margin-bottom no-padding>
+	      <ion-card class="boxShadow" margin-bottom no-padding >
 	        <div class="card-img-wrap">
 	          <span ion-text class="card-img-status sale fw300 text-white" [ngClass]="{'rent': property.status == 'answered', 'sale': property.status == 'unanswered'}">
 							{{property.status}}

@@ -148,7 +148,7 @@ export class PropertyDetailPage {
             buttons: [
                 {
                     text: 'edit',
-                    handler: () => console.log('edited')
+                    handler: () => this.editData(id)
                 },
                 {
                     text: 'delete',
@@ -159,6 +159,13 @@ export class PropertyDetailPage {
 
         actionSheet.present();
     }
+
+    editData(id:string){
+
+    }
+
+
+
     edit() {
 
         this.storage.get('user').then(data=>{
