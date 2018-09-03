@@ -27,7 +27,9 @@ export class ChangePasswordPage {
 
   constructor(public storage:Storage,private authService:AuthProvider,public formBuilder: FormBuilder, public navParams: NavParams,public navCtrl: NavController , public forgotCtrl: AlertController, public menu: MenuController, private toastCtrl: ToastController,public loadingCtrl: LoadingController) {
     this.menu.swipeEnable(false);
+  
     this.navCtrl = navCtrl;
+    //validation form
     this.PassForm = formBuilder.group({      
       oldPassword: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
       newPassword: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
@@ -36,6 +38,7 @@ export class ChangePasswordPage {
   }
 
   matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
+    //verify if password match
     return (group: FormGroup): {[key: string]: any} => {
       let password = group.controls[passwordKey];
       let confirmPassword = group.controls[confirmPasswordKey];
@@ -64,11 +67,14 @@ export class ChangePasswordPage {
   }
 
   onSubmit(): void {
+    //submit change password
     console.log("submit")
     if(this.PassForm.valid) {
         this.showLoader();
+        //change password data for user using api
         this.authService.changePpassword(this.user).then(res=>{
           console.log(res)
+          //in case everything ok go to page initial
           this.loading.dismiss();
           this.presentToast("updated succesfully");
           this.navCtrl.setRoot('page-initial');

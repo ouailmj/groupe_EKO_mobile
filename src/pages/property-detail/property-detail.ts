@@ -69,6 +69,7 @@ export class PropertyDetailPage {
         this.showLoader();
 
         this.param = this.navParams.get('id');
+        //get id 
         this.property = this.propertyService.getItem(this.param) ? this.propertyService.getItem(this.param) : this.propertyService.getProperties()[0];
 
         this.authService.getUserProfiles(this.property.auteur).then(res=>{
@@ -258,6 +259,7 @@ export class PropertyDetailPage {
     }
 
     onSubmit(){
+        //put a comment
         if(this.onCommentForm.valid){
             let loader = this.loadingCtrl.create({
                 content: "Please wait..."

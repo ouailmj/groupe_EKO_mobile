@@ -27,7 +27,7 @@ export class PropertyService {
   findAll(): Promise<any> {
 
     return new Promise ((resolve, reject) => {
-
+      //load all conversations
       this.storage.get('dataconv').then(data=>{
       this.properties = data;
 
@@ -47,11 +47,12 @@ export class PropertyService {
 	}
 
   findById(id) {
+    //get property id
     return Promise.resolve(this.properties[id - 1]);
   }
 
 	getItem(id) {
-
+    //get conversation by id
 		for (var i = 0; i < this.properties.length; i++) {
 			if (this.properties[i].id === parseInt(id)) {
 				return this.properties[i];
@@ -62,10 +63,11 @@ export class PropertyService {
 
   findByName(searchKey: string) {
     return new Promise((resolve, reject) => {
-
+      //get all conversations by searchKey
       let key: string = searchKey.toUpperCase();
       this.storage.get('dataconv').then(data=>{
         resolve (data.filter((property: any) =>
+        //filter data by title or question
           (property.titre + ' ' +property.question).toUpperCase().indexOf(key) > -1));
       })
 

@@ -17,6 +17,7 @@ export class InitialPage {
 
   showSkip = true;
 
+  //all data initial in EKO page initial
   slideList: Array<any> = [
     {
       title: "What is <strong>Groupe-EKO</strong>?",
@@ -41,18 +42,22 @@ export class InitialPage {
   }
 
   onSlideNext() {
+    //next page
     this.slides.slideNext(300)
   }
 
 	onSlidePrev() {
+    //previous page
     this.slides.slidePrev(300)
   }
 
   onLastSlide() {
+    //last page
   	this.slides.slideTo(3, 300)
   }
 
   openAuthPage() {
+    //log in page
     this.navCtrl.setRoot('page-auth');
   }
 

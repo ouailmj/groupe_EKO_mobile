@@ -36,7 +36,7 @@ export class TopicProvider {
 
             headers = headers.set('Content-Type', 'application/json; charset=utf-8');
             headers = headers.set('Authorization', 'Bearer ' + tok);
-
+            //get conversations
             this.apiProvider.get(TopicRoutes.apiConversations,{headers: headers}).then(rep=>{
 
                 resolve(rep["hydra:member"]);

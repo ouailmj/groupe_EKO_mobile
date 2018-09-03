@@ -40,10 +40,12 @@ export class HomePage {
 		this.menuCtrl.swipeEnable(true, 'authenticated');
 		this.menuCtrl.enable(true);
 
+	//get all conversation
 		this.findAll();
   }
 
 	sort(){
+		//sort data by order
 		this.descending = !this.descending;
 		this.order = this.descending ? 1 : -1;
 	}
@@ -63,7 +65,7 @@ export class HomePage {
 	}
 	
 	onInput(event) {
-
+			//input data on search bar
 	    this.service.findByName(this.searchKey)
 	        .then(data => {
 						this.topics = data;
@@ -72,6 +74,7 @@ export class HomePage {
 	}
 
 	onCancel(event) {
+		// in case the user wanna cancel the input
 	    this.findAll();
 	}
 
@@ -81,8 +84,11 @@ export class HomePage {
 		});
 
 		this.loading.present();
+		//get conversations
 			this.topicProvider.getConversations().then(data=>{
+				//put data in a variable using setProperty
 				this.service.setProperty(data);
+
 				this.topics = data;
 				this.storage.set('dataconv', data);
 				console.log(data);
@@ -98,7 +104,8 @@ export class HomePage {
 		}
 
   presentNotifications(myEvent) {
-    console.log(myEvent);
+		console.log(myEvent);
+		//create notification page in popup
 		let popover = this.popoverCtrl.create('page-notifications');
     popover.present({
       ev: myEvent

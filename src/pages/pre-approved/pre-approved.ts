@@ -1,3 +1,12 @@
+/* 
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!page to create NEW CONVERSATION
+
+
+*/
+
+
+
 import { Storage } from '@ionic/storage';
 import { TopicProvider } from './../../providers/topic/topic';
 import { Component, OnInit } from '@angular/core';
@@ -19,6 +28,7 @@ export class PreApprovedPage implements OnInit {
   ChooseTopicData:ChooseTopicData = {
     titre: "",
     categorie: "",
+    //always unsansweered first
     status: "unanswered",
     question: "",
     datePost: "",
@@ -38,6 +48,7 @@ export class PreApprovedPage implements OnInit {
   }
 
   ngOnInit() {
+    //validation form
     this.onApprovedForm = this._fb.group({
       profiledata: [true, Validators.compose([
         Validators.required
@@ -78,6 +89,7 @@ export class PreApprovedPage implements OnInit {
       });
       loader.present();
       let date = new Date()
+      //put date in variable already created the type of it
       this.ChooseTopicData.datePost = date.toDateString();
       this.ChooseTopicData.dateEdit = date.toDateString();
       console.log(this.ChooseTopicData);

@@ -31,12 +31,14 @@ export class MyAccountPage {
     connexion:""
   };
   constructor(public authprov:AuthProvider ,public storage:Storage, public navCtrl: NavController, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
+    //get user data
     this.storage.get("user").then(data=>{
       console.log(data);
-
+      //put data in array
       this.dataUser.username = data.username;
       this.dataUser.email = data.email;
 
+      //switch type of user 
       if(data.roles[0]=="ROLE_SUPER_ADMIN"){
         this.dataUser.type = "Administrator";
       }else if(data.roles[0]=="ROLE_COLABORATOR"){
@@ -53,7 +55,7 @@ export class MyAccountPage {
 
     this.storage.get("userdata").then(data=>{
       console.log(data);
-
+//get full user data from employee
       this.dataUser.fullName = data.firstName + ' ' + data.lastName;
       this.dataUser.address = data.addresses[0];
       this.dataUser.code = data.postalCode;
@@ -65,7 +67,7 @@ export class MyAccountPage {
 
   // process send button
   sendData() {
-    // send booking info
+    // not active!!
     let loader = this.loadingCtrl.create({
       content: "Please wait..."
     });

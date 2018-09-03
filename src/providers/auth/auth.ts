@@ -15,8 +15,9 @@ export class AuthProvider {
   }
 
   login(userData: UserData): Promise<any> {
+    //get data from api
 
-
+    //path
     const loginPath = 'http://localhost:8000' + AuthRoutes.apiLoginCheckUrl;
 
     const formData = new FormData();
@@ -24,7 +25,7 @@ export class AuthProvider {
     formData.append("_password",userData.password);
 
      return new Promise((resolve, reject) => {
-
+      //fetch formdata for jwt
         fetch(loginPath, {
           method: 'POST',
           body: formData
@@ -33,12 +34,14 @@ export class AuthProvider {
         .then(response =>{
           response.json().then(result=>{
 
+          //store jwt
           this.storage.set('token', result.token);
               let headers = new HttpHeaders();
 
               headers = headers.set('Content-Type', 'application/json; charset=utf-8');
               headers = headers.set('Authorization', 'Bearer ' + result.token);
 
+              //get data user
               this.apiProvider.get(AuthRoutes.apiCurrentUser, {headers: headers}).then(user => {
 
                   this.storage.set('user', user);
@@ -50,6 +53,7 @@ export class AuthProvider {
               
               })
 
+          //send result in case everything is ok
           resolve(result);
 
          }).catch(err=>{
@@ -75,13 +79,13 @@ export class AuthProvider {
   changePpassword(credentials) : Promise<any>{
     return new Promise((resolve, reject) => {
 
-
+//get token
       this.storage.get('token').then(tok=>{
 
       let headers = new HttpHeaders();
       headers = headers.set('Content-Type', 'application/json; charset=utf-8');
       headers = headers.set('Authorization', 'Bearer ' + tok);
-
+//put password
       this.apiProvider.post(AuthRoutes.apiResPass,credentials,{headers: headers}).then(rep=>{
 
           this.storage.remove('token');
@@ -171,7 +175,7 @@ export class AuthProvider {
 
   return new Promise((resolve, reject) => {
 
-
+//get token from session
       this.storage.get('token').then(tok=>{
 
       let headers = new HttpHeaders();
@@ -180,7 +184,7 @@ export class AuthProvider {
       headers = headers.set('Authorization', 'Bearer ' + tok);
 
       this.apiProvider.get(AuthRoutes.apiCurrentUser , {headers: headers}).then(rep=>{
-          
+          //get other user data 
           this.apiProvider.get(rep.person ,{headers: headers}).then(repdata=>{
             this.storage.set('userdata', repdata);
           }).catch(error=>{

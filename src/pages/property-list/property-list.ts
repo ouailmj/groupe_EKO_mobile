@@ -24,7 +24,8 @@ export class PropertyListPage {
     markersGroup;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public service: PropertyService, public toastCtrl: ToastController, public modalCtrl: ModalController, public config: Config) {
-			this.findAll();
+            //call findall service
+            this.findAll();
 			this.proptype = this.navParams.get('proptype') || "";
 			this.from = this.navParams.get('from') || "";
     }
@@ -48,6 +49,7 @@ export class PropertyListPage {
     }
 
     onInput(event) {
+        //search bar service(see homepage)
         this.service.findByName(this.searchKey)
             .then(data => {
                 this.properties = data;
@@ -56,10 +58,12 @@ export class PropertyListPage {
     }
 
     onCancel(event) {
+        //(see homepage for more explanation)
         this.findAll();
     }
 
     findAll() {
+        //(see homepage for more explanation)
         this.service.findAll()
             .then(data => this.properties = data)
             .catch(error => alert(error));

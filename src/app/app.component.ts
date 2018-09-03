@@ -44,6 +44,8 @@ export class ionPropertyApp {
 
 	constructor(public storage:Storage, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
 		this.initializeApp();
+
+		//get user data from Session
 		this.storage.get("user").then(data=>{
 			this.dataUser.username = data.username;
 			if(data.roles[0]=="ROLE_SUPER_ADMIN"){
@@ -56,7 +58,9 @@ export class ionPropertyApp {
 
 		}).catch(error => {
       		console.log(error.status);
-    	});
+		});
+		
+		//name the pages
 		this.homeItem = {component: 'page-home' };
 		this.initialItem = {component: 'page-initial'};
 		this.messagesItem = {component: 'page-message-list'};
@@ -98,6 +102,7 @@ export class ionPropertyApp {
 		// we wouldn't want the back button to show in this scenario
 		if(page=='accountMenuItems[0]'){
 			this.storage.get("user").then(data=>{
+				//remove user data in case return to log in page
 				this.storage.remove('token');
 				this.storage.remove('user');
 			}).catch(error => {

@@ -22,6 +22,7 @@ export class AuthPage{
   
   loading: any;
 
+  //default username and password  
   loginData:UserData = {
     username:'admin',
     password:"f%/R4Uk#](wUvM'V",
@@ -46,7 +47,10 @@ export class AuthPage{
     
     this.navCtrl = navCtrl;
 
+    //remove user data from session
     this.removeUser();
+      
+    //form validation username password
     this.validationUser();
   }
 
@@ -69,11 +73,16 @@ export class AuthPage{
   }
 
   doLogin(value : any) {
+    //onclick button login
     if(this.authForm.valid) {
+      //loading item
       this.showLoader();
+
       this.authService.login(this.loginData).then((result) => {
 
           console.log(result.token);
+  
+          //get name and other information from employee
           this.getUserInfo();
             
       }
@@ -92,6 +101,7 @@ export class AuthPage{
   getUserInfo(){
 
     this.authService.getUserProfil().then(res=>{
+      //in case everything ok get to home page
       this.navCtrl.setRoot('page-home');
       this.loading.dismiss();
       this.presentToast("welcome");
