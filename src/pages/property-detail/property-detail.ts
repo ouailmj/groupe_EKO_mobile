@@ -99,9 +99,9 @@ export class PropertyDetailPage {
     }
 
     openUserDetail(user) {
-		this.navCtrl.push('page-broker-detail', {
-			'id': user
-		});
+		// this.navCtrl.push('page-broker-detail', {
+		// 	'id': user
+		// });
     }
 
     favorite(property) {
